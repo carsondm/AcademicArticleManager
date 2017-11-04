@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  main(role='main')
+    div.jumbotron
+      div.container
+        h3 Academic Article Manager: a knowledgebase of academia
+
+    div.aam-container
+      //- Upload Search area
+      div.USA
+        form.search
+          h1 Search
+
+          div.btn-group.search-selector(data-toggle="buttons")
+            label.btn.btn-search.active
+              input(type="radio" name="options" id="keyword" autocomplete="off" checked)
+              h4 Keyword
+            label.btn.btn-search
+              input(type="radio" name="options" id="author" autocomplete="off")
+              h4 Author
+            label.btn.btn-search
+              input(type="radio" name="options" id="institute" autocomplete="off")
+              h4 Institution
+          input.searchbar(type='text' placeholder='Search')
+          input.aam-btn.btn-primary(type='submit' value='Search')
+  
+        form.upload
+          h1 Upload
+          input.searchbar(type='text' placeholder='File Location')
+          input.aam-btn.btn-primary(type='submit' value='Upload')
+        
+      //- Login Register area
+      div.LRA
+        form.login
+          h2 Login
+          input.lrfield(type='text' placeholder='Email')
+          input.lrfield(type='text' placeholder='Password')
+          input.aam-btn.btn-primary(type='submit' value='Login')
+  
+        form.register
+          h2 Register
+          input.lrfield(type='text' placeholder='Email')
+          input.lrfield(type='text' placeholder='Password')            
+          input.lrfield(type='text' placeholder='Confirm')
+          input.aam-btn.btn-primary(type='submit' value='Register')
