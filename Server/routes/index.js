@@ -20,14 +20,6 @@ router.get('/', function(req, res, next) {
 	testing purposes
 */
 
-router.post('/results', function(req, res, next) {
-  res.render('results', { 
-  	title: 'AAM | Results', 
-  	search: req.body.search,
-  	searchtype: req.body.options,
-  	});
-});
-
 // registration route
 router.post('/register', function(req, res, next) {
 	var user = User({
