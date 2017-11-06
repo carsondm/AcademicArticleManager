@@ -13,12 +13,12 @@ append scripts
       });
     });
 block content
-  
+
   //- Main body of page, contains search and login boxes
   div.container-fluid
     div.row.justify-content-md-center.aam-content-pane
       div.col-sm-7.USA
-        form.search.justify-content-md-center(method='post' action='/results')
+        form.search.justify-content-md-center(method='GET' action='/results')
           h1 Search
 
           br
@@ -40,7 +40,7 @@ block content
 
           div.row.aam-row-padded
             input.btn.aam-btn.btn-primary(type='submit' value='Search' href='/search' method='POST')
-  
+        // reallly need to remove these breaks
         br
         br
 

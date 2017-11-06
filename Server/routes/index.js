@@ -14,12 +14,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'AAM | Index' });
 });
 
-/* this is a hack, change this */
-/* hitting the submit button on the index peforms action /results via
-	POST, but doesn't send any data currently. This is a quick hack for
-	testing purposes
-*/
-
 // registration route
 router.post('/register', function(req, res, next) {
 	var user = User({

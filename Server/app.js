@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var results = require('./routes/results');
 var upload = require('./routes/upload');
+var remove = require('./routes/remove');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/index', index);
 app.use('/results', results);
 app.use('/users', users);
 app.use('/upload', upload);
+app.use('/remove', remove);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
