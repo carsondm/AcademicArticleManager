@@ -200,3 +200,11 @@ h2 {
 .read-more:hover {
 	text-decoration: underline;
 }
+
+
+/* 				Stuff I really shouldn't have done 			 */
+
+/* all buttons now have black text */
+.btn {
+	color: black;
+}

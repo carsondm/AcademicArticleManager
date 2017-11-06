@@ -1,0 +1,29 @@
+extends layout
+
+append scripts
+  link(rel='stylesheet', href='/stylesheets/upload.css')
+
+block content
+  div.container-fluid
+    div.row.justify-content-md-center.aam-content-pane
+      div.col-sm-10
+
+        form.create.justify-content-md-center(method='POST' action='/upload/create')
+          h2 Create a new article manually
+          div.row.justify-content-md-center
+            div.col-sm-3
+              input.form-control(type='text' placeholder='Title' name='title')
+            div.col-sm-3
+              input.form-control(type='text' placeholder='Author' name='author')
+            div.col-sm-3
+              input.form-control(type='text' placeholder='University' name='uni')
+            div.col-sm-3
+              input.form-control(type='text' placeholder='Keywords' name='tags')
+          div.row.justify-content-md-center
+            div.col-sm-8.bigtext
+              textarea.form-control(type='text' placeholder='Snippet' name='snippet')
+            div.col-sm-8.bigtext
+              textarea.form-control(type='text' placeholder='Article text' name='text')
+
+          div.row.lra-row
+            input.btn.aam-btn.btn-primary(type='submit' value='Create')

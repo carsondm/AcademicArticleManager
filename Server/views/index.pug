@@ -13,9 +13,9 @@ append scripts
       });
     });
 block content
+  
   //- Main body of page, contains search and login boxes
   div.container-fluid
-    //- main(role='main')
     div.row.justify-content-md-center.aam-content-pane
       div.col-sm-7.USA
         form.search.justify-content-md-center(method='post' action='/results')
@@ -26,32 +26,32 @@ block content
           div.row.aam-row-padded
             div.btn-group.search-selector(data-toggle="buttons")
               div.btn.search-selector-btn.active.col-sm-10
-                input(type="radio" name="options" id="keyword" autocomplete="off" checked)
+                input(type="radio" name="options" value="keyword" id="keyword" autocomplete="off" checked)
                 h4 Keyword
               div.btn.search-selector-btn.col-sm-10
-                input(type="radio" name="options" id="author" autocomplete="off")
+                input(type="radio" name="options" value="author" id="author" autocomplete="off")
                 h4 Author
               div.btn.search-selector-btn.col-sm-10
-                input(type="radio" name="options" id="doi" autocomplete="off")
+                input(type="radio" name="options" value="doi" id="doi" autocomplete="off")
                 h4 DOI
 
           div.row.aam-row-padded
-            input.searchbar(type='text' placeholder='Search')
+            input.searchbar(type='text' placeholder='Search' name='search')
 
           div.row.aam-row-padded
-            input.aam-btn.btn-primary(type='submit' value='Search' href='/search' method='POST')
+            input.btn.aam-btn.btn-primary(type='submit' value='Search' href='/search' method='POST')
   
         br
         br
 
-        form.upload.justify-content-md-center
+        form.upload.justify-content-md-center(method='post' action='/upload')
           h1 Upload
 
           br
           br
           div.row.aam-row-padded
-            input.searchbar(type='text' placeholder='File Location')
-            input.aam-btn.btn-primary(type='submit' value='Upload')
+            input.searchbar(type='text' placeholder='File Location' name='upload')
+            input.btn.aam-btn.btn-primary(type='submit' value='Upload')
 
       div.col-sm-4.LRA
 
@@ -64,23 +64,23 @@ block content
               input(type="radio" name="options" id="login" autocomplete="off")
               h3 Login
 
-        form.login.justify-content-md-center
+        form.login.justify-content-md-center(method='POST' action='/login')
           h2 Login
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email')
+            input.lrfield(type='text' placeholder='Email' name='email')
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Password')
+            input.lrfield(type='text' placeholder='Password' name='password')
           div.row.lra-row
-            input.aam-btn.btn-primary(type='submit' value='Login')
+            input.btn.aam-btn.btn-primary(type='submit' value='Login')
   
-        form.register.justify-content-md-center
+        form.register.justify-content-md-center(method='POST' action='/register')
           h2 Register
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email')
+            input.lrfield(type='text' placeholder='Email' name='email')
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Password')            
+            input.lrfield(type='text' placeholder='Password' name='password')            
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Confirm')
+            input.lrfield(type='text' placeholder='Confirm' name='confirm')
           div.row.lra-row
-            input.aam-btn.btn-primary(type='submit' value='Register')
+            input.btn.aam-btn.btn-primary(type='submit' value='Register')
 
