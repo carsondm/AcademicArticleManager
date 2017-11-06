@@ -1,6 +1,7 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #FBFBFB;
 }
 
 a {
@@ -9,14 +10,71 @@ a {
 
 /* **********	Custom Form Fields		********** */
 h2 {
-	grid-row: auto;
+	/*grid-row: auto;*/
 	text-align: center;
 }
+
+
+/* ************************************************** */
+/* ************** AAM custom divs styles *************** */
+
+.USA, .LRA {
+	margin: 10px;
+
+	/*border: 2px dotted gray;*/
+	/*border-radius: 3px;*/
+	/*padding: 10px;*/
+}
+
+.USA {
+	max-width: 1000px;
+
+	/*display: grid;*/
+	/*grid-template-rows: 1fr 1fr;*/
+
+	/*border: 1px #CCC solid;*/
+	/*height: 100%;*/
+
+	/*background-color: #FBB;*/
+}
+
+.LRA {
+	max-width: 400px;
+
+	background-color: #F3F3F3;
+}
+
+.aam-content-pane {
+	margin-top: 6%;
+}
+
+.aam-row-padded {
+	/*order: top right bottom left*/
+	padding: 0px 5% 0px 5%;
+}
+
+/* styles for the forms */
+.search, .upload {
+	width: 100%;
+	padding: 20px;
+}
+.login {
+	display: none;
+}
+.register {
+
+}
+.login, .register {
+	padding: 20px;	
+}
+
+/* ************************************************** */
+/* ************** AAM custom buttons and fields *************** */
 
 .aam-btn {
 	font-size: 1.5rem;
 
-	background-color: black;
+	background-color: #C4C4C4;
 
 	padding: 5px 25px 5px 25px;
 	margin: auto;
@@ -24,60 +82,41 @@ h2 {
 	border: 2px black;
 	border-radius: 1px;
 
-	/*width: 50%;*/
+	margin-top: 10px;
+
+	width: 40%;
 }
 .aam-btn:hover {
 	background-color: #ffc904;
 }
 
-.search, .upload {
-	display: grid;
-
-	grid-template-columns: 1fr;
-
-	margin: auto;
-	width: 80%;
-
-	padding: 20px;
-}
-
 .searchbar, .uploadbar {
 	color: black;
 
-	grid-column: 1 / 2;
+	width: 100%;
 
 	font-size: 30px;
 	padding: 10px;
 	padding-left: 15px;
 
-	margin: 5px;
-	margin-bottom: 10px;
-
-	border: 1px gray solid;
-	border-radius: 1px;
+	border: none;
+	/*border: 1px gray solid;*/
+	/*border-radius: 1px;*/
 }
 .searchbar:focus, .uploadbar:focus {
 	border: 1px #ffc904 solid;
 }
 
-.login, .register {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-row-gap: 10px;
-
-	padding: 20px;	
-}
 .lrfield {
 	background-color: transparent;
 	color: black;
 
+	width: 100%;
+
 	font-size: 24px;
-	margin: 5px;
+	margin: 3%;
 	padding: 8px;
 	padding-left: 15px;
-
-	grid-column: 1 / 2;
-	grid-row: auto;
 
 	border: none;
 	border-bottom: 2px gray solid;
@@ -85,42 +124,43 @@ h2 {
 .lrfield:focus {
 	border-bottom: 2px #ffc904 solid;
 }
+.lra-row {
+	margin: 15% auto 15% auto;
+}
 
 .search-selector {
-	/*width: 100%;*/
-	grid-column: 1 / 2;
+	width: 100%;
 }
-.btn-search {
-	width: 33.3%;
+.search-selector-btn {
+	height: 40px;
 	color: white;
-	background-color: black;
+	background-color: #D9D9D9;
 	border-radius: 0px;
 }
-.btn-search:active, .btn-search:focus, .btn-search:checked {
-	background-color: gray;
+
+.search-selector-btn:not([disabled]):not(.disabled).active {
+	background-color: #BDBDBD;
+	box-shadow: none;	
 }
+
+.lra-selector {
+	width: 100%;
+}
+.lra-selector-btn {
+	padding: 5px;
+	width: 100%;
+	color: white;
+	background-color: #D9D9D9;
+	border-radius: 0px;
+}
+
+.lra-selector-btn:not([disabled]):not(.disabled).active {
+	background-color: #BDBDBD;
+	box-shadow: none;	
+}
+
 .aam-container {
-	display: grid;
-	grid-template-columns: 7fr 3fr;
-	grid-template-rows: 1fr;
 }
+
+
 /* **********	Debugging things	********** */
-
-.USA, .LRA {
-	/*border: 2px dotted gray;*/
-	/*border-radius: 3px;*/
-	/*padding: 10px;*/
-}
-
-.USA {
-	display: grid;
-	grid-template-rows: 1fr 1fr;
-
-	border: 1px #CCC solid;
-
-	/*background-color: #FBB;*/
-}
-
-.LRA {
-	background-color: #BBB;
-}
