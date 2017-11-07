@@ -9,20 +9,23 @@ block content
     div.row.justify-content-md-center.aam-content-pane
       div.col-sm-10
 
-        form.create.justify-content-md-center(method='POST' action='/upload/create')
+        form.create.justify-content-md-center(method='POST' action='/upload/manualcreate')
           h2 Create a new article manually
           div.row.justify-content-md-center
             div.col-sm-3
-              input.form-control(type='text' placeholder='Title' name='title')
+              input.form-control(type='text' placeholder='Title' name='title' value='Title')
             div.col-sm-3
-              input.form-control(type='text' placeholder='Author' name='author')
+              input.form-control(type='text' placeholder='Author' name='author' value='Author')
             div.col-sm-3
-              input.form-control(type='text' placeholder='University' name='uni')
+              input.form-control(type='text' placeholder='University' name='uni' value='University')
             div.col-sm-3
-              input.form-control(type='text' placeholder='Keywords' name='tags')
+              input.form-control(type='text' placeholder='Keywords' name='tags' value='Some tags')
+            div.col-sm-3
+              input.form-control(type='text' placeholder='User' name='owner' value='user1')
           div.row.justify-content-md-center
             div.col-sm-8.bigtext
               textarea.form-control(type='text' placeholder='Snippet' name='snippet')
+                | Snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet
             div.col-sm-8.bigtext
               textarea.form-control(type='text' placeholder='Article text' name='text')
 

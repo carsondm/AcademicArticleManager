@@ -9,6 +9,7 @@ var articleSchema = new Schema({
 	tag: [String],
 	publishDate: Date,
 	snippet: String,
+	owner: String
 });
 
 module.exports = mongoose.model('Article', articleSchema);

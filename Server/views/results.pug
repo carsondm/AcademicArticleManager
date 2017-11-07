@@ -1,30 +1,77 @@
 extends layout
 
 mixin res(art)
-  div.container.result-card.grow
-    div.row.result-header
-      div.col-sm-9
-        p.result-header= art.title
-    div.row.result-snippet
-      div.result-snippet
-        h5= art.author 
-        h5= art.university
-      p.result-snippet= art.snippet
-      div
-        p.read-more Read more
-        a.read-more(href='/remove?id=' + art._id) Remove
+  div.container.result-card
+    div.result-header
+        .result-header= art.title
+    div.result-tools
+    h5.result-author= 'Author: ' + art.author 
+    h5.result-inst= 'Institution: ' + art.university
+    h5.result-tags= 'Tags: ' + art.tag
+    //- p= 'Owner: ' + art.owner
+    p.result-preview-label Preview
+    p.result-preview-text= art.snippet
+    p.read-more.tools Read more
+    //- , href='/remove?id=' + art._id
+    a.remove.tools(dbid='' + art._id) Remove
 
+
+append scripts
+  script.
+    $(document).ready( function() {
+      $('.alert').hide();
+
+      $('.read-more').click( function() {
+        $('.alert').show().delay(4000).fadeOut();
+      });
+
+      // Ajax call to remove an article
+      $('.remove').click( function() {
+
+        var id = $( this ).attr( "dbid" );
+        console.log( $(this).attr( "dbid" ) );
+        console.log('clicked remove on ' + id);
+        
+        //- Send a request to remove this article from the database
+        //- If we get a success response, hide and remove the div, if not, display error
+        //- NOTE: it appears that ajax requests look context of $(this), and this line is required to successfully remove the card if it was removed from the database
+
+        var $thisCard = $(this);  
+        $.ajax({
+          method: 'GET',
+          url: '/remove?id=' + id,
+          success: function( result ) {
+            res = result;
+            
+            console.log('Ajax response: ' + res);
+            
+            if( result == "success" ) {
+              console.log('got a success response');
+              $thisCard.parents('.result-card').hide("slide");
+            }
+            else{
+              console.log('there was an error');
+            }
+          }
+        });
+      });
+    });
 
 block content
   div.container-fluid
-      
+
+    div.row.justify-content-md-center
+      div.blank-alert
+      div.alert.alert-success(role='alert')
+        | Article deleted
+
     div.row.justify-content-md-center
 
       div.col-md-10.result-list.justify-content-md-center
+        
         h1 Results for: #{search}
         h1 Search type: #{searchtype}
-        div.row.justify-content-md-center
-        
-          ul
-            each article in results
-              +res(article)
+
+        ul
+          each article in results
+            +res(article)

@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 	res.render('results', { 
 		title: 'AAM | Results', 
 		search: req.query.search,
-  		searchtype: req.query.options,
+  	searchtype: req.query.options,
 		results: results });
   });
 });
