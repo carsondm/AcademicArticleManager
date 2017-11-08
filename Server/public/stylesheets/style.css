@@ -1,7 +1,8 @@
 body {
   /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #FBFBFB;
+  /*background-color: #FBFBFB;*/
+
 }
 
 a {
@@ -172,6 +173,11 @@ h2 {
 	width: 100%;
 }
 
+result {
+	margin: 45px;
+	margin-bottom: 80px;
+}
+
 .result-card {
 	display: grid;
 
@@ -187,19 +193,17 @@ h2 {
 	grid-template-columns: 1fr 1fr 1fr;
 
 	padding: 5px;
-
-	margin: 10px;
 }
 
-.result-snippet {
+.result-card>snippet {
 	padding: 10px 20px 10px 20px;
 	font-size: 15px;
 }
-.result-snippet>h5 {
+.result-card>snippet>h5 {  
 	text-decoration: underline;
 }
 
-.result-header {
+.result-card>header {
 	grid-area: title;
 	/*padding: 10px 0px 5px 10px;*/
 	font-size: 48px;
@@ -207,38 +211,71 @@ h2 {
 
 	vertical-align: middle;
 }
-.result-tools {
+.result-card>tools {
 	grid-area: tools;
-	background-color: red;
 }
-.result-author {
+.result-card>author,inst,tags {
+	padding: 15px;
+	
+}
+.result-card>author {
 	grid-area: author;
 
 	padding-left: 40px;
 }
-.result-inst {
+.result-card>inst {
 	grid-area: inst;
 }
-.result-tags {
+.result-card>tags {
 	grid-area: tags;
+	justify-content: end;
 }
-.result-preview-label {
+.result-card>preview-label {
 	grid-area: previewlabel;
+
 	padding-left: 40px;
 }
-.result-preview-text {
+.result-card>preview-text {
 	grid-area: previewtext;
-	padding-left: 40px;
+	padding-left: 5%;
 
 	font-size: 20px;
 }
 .foot {
 	grid-area: foot;
 }
-.tools {
+tools {
+	/* was playing with the idea of making this a subgrid to align the toolbar */
+	display: grid;
+	grid-template-areas: ". one two three";
+	grid-template-columns: 4fr 1fr 1fr 1fr;
+
 	grid-area: tools;
+
+	align-self: end;
+}
+tools>img {
+	margin: 5px;
+	height: 28px;
+	width: auto;
+
+	transition: height 0.125s;
+
+	align-self: end;
+}
+tools>img:hover {
+	height: 32px;
 }
 
+.remove {
+	grid-area: one;
+}
+.favorite {
+	grid-area: two;
+}
+.download {
+	grid-area: three;
+}
 .read-more {
 	
 }
@@ -246,6 +283,9 @@ h2 {
 	text-decoration: underline;
 }
 
+.underline {
+	border-bottom: 1px solid #d1d1d1;
+}
 
 /* 				Stuff I really shouldn't have done 			 */
 /* all buttons now have black text */
@@ -253,11 +293,12 @@ h2 {
 	color: black;
 }
 
-.grow { transition: all .2s ease-in-out; }
+.grow { transition: all .125s ease; }
 .grow:hover { transform: scale(1.005); }
 
 .alert {
-	width: 80%;
+	/*width: 80%;*/
+	margin: 10px;
 	display: none;
 }
 .blank-alert {

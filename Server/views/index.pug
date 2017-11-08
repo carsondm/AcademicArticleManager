@@ -70,20 +70,19 @@ block content
         form.login.justify-content-md-center(method='POST' action='/login')
           h2 Login
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email' name='email')
+            input.lrfield(type='text' placeholder='Email' name='username')
           div.row.lra-row
             input.lrfield(type='text' placeholder='Password' name='password')
           div.row.lra-row
             input.btn.aam-btn.btn-primary(type='submit' value='Login')
-  
+
         form.register.justify-content-md-center(method='POST' action='/register')
           h2 Register
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email' name='email')
+            input.lrfield(type='text' placeholder='Email' name='username')
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Password' name='password')            
+            input.lrfield(type='text' placeholder='Password' name='password')
           div.row.lra-row
             input.lrfield(type='text' placeholder='Confirm' name='confirm')
           div.row.lra-row
             input.btn.aam-btn.btn-primary(type='submit' value='Register')
-

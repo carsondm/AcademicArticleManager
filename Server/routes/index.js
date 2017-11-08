@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var auth = require("../controllers/AuthController.js");
 
 var User = require('../models/user');
 
@@ -15,31 +16,43 @@ router.get('/', function(req, res, next) {
 });
 
 // registration route
-router.post('/register', function(req, res, next) {
-	var user = User({
-		email: req.body.email, 
-		password: req.body.password, 
-		confirm: req.body.confirm 		
-	});
+// router.post('/register', function(req, res, next) {
+// 	var user = User({
+// 		email: req.body.email,
+// 		password: req.body.password,
+// 		confirm: req.body.confirm
+// 	});
+//
+// 	user.save(function (err, user) {
+//   		if (err) return console.error(err);
+//   		console.log('Entered ' + user.email + ' into the DB');
+// 	});
+//
+// 	res.render('register', {
+// 		email: req.body.email,
+// 		password: req.body.password,
+// 		confirm: req.body.confirm
+// 	});
+// });
 
-	user.save(function (err, user) {
-  		if (err) return console.error(err);
-  		console.log('Entered ' + user.email + ' into the DB');
-	});
+// route to register page
+router.get('/register', auth.register);
 
-	res.render('register', {
-		email: req.body.email, 
-		password: req.body.password, 
-		confirm: req.body.confirm 
-	});
-});
+// route for register action
+router.post('/register', auth.doRegister);
 
 // login route
-router.post('/login', function(req, res, next) {
-	res.render('login', {
-		email: req.body.email, 
-		password: req.body.password, 
-	});
-});
+// router.post('/login', function(req, res, next) {
+// 	res.render('login', {
+// 		email: req.body.email,
+// 		password: req.body.password,
+// 	});
+// });
+
+// route to login page
+router.get('/login', auth.login);
+
+// route for login action
+router.post('/login', auth.doLogin);
 
 module.exports = router;
