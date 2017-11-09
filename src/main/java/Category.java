@@ -1,6 +1,10 @@
 /*
-* Programmer: Mark Kenneth Alano
+* This program takes in two inputs String Title and String Abstract of an article
+* Using the Meaningcloud api it will categorize that text by category and sub category
+* To access the information use getCategory() and getSubCategory()
 *
+* Programmer: Mark Kenneth Alano
+* Date: 11/9/2017
 *
 * */
 
@@ -24,17 +28,11 @@ public class Category {
     private String APIKEY = null;
     /*Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
-    private String category = null;
-    private String subCategory = null;
-
-    public static void main(String[] args) {
-        Category test = new Category(null,null);
-
-    }
+    private Pair<String, String> categoryAndSub = null;
 
     /*
-    * Sets
-    *
+    * Constructor
+    * Any exception found will result category and sub to be null
     * */
     public Category(String title, String body){
         String jsonString = null;
@@ -42,17 +40,19 @@ public class Category {
         body = shortenBody(body);
 
         try {
-            ParseJson(requestMeaningCloud(title,body));
+            jsonString = requestMeaningCloud(title,body);
+            categories = ParseJson(jsonString);
+            categoryAndSub = getCategoriesAndSubCategories(categories.get(0));
         } catch (UnirestException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-
-        category = null;
-        subCategory = null;
-        return;
+        //System.out.println(jsonString);
+        //System.out.println("Category: " + getCategory() + " Sub-Category: " + getSubCategory());
 
     }
 
@@ -67,9 +67,10 @@ public class Category {
     }
 
     /*https://examples.javacodegeeks.com/core-java/json/java-json-parser-example/*/
-    private void ParseJson(String json) throws ParseException{
+    private ArrayList<Pair<String, Integer>> ParseJson(String json) throws ParseException{
             //For test only
             //FileReader reader = new FileReader("C:\\Programming\\IdeaProjects\\GroupProject\\ParserMKEA\\src\\main\\resources\\Test.json");
+            ArrayList<Pair<String, Integer>> pairArrayList = new ArrayList<>();
 
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
@@ -79,10 +80,11 @@ public class Category {
             Iterator i = jsonArray.iterator();
             while (i.hasNext()) {
                 JSONObject innerObj = (JSONObject) i.next();
-                categories.add(
+                pairArrayList.add(
                         new Pair<String, Integer>(innerObj.get("label").toString(), Integer.parseInt(innerObj.get("relevance").toString())));
             }
 
+            return pairArrayList;
     }
 
     /*
@@ -103,9 +105,11 @@ public class Category {
 
     }
 
-    public void getCategoriesAndSubCategories() throws Exception{
+    private Pair<String, String> getCategoriesAndSubCategories(Pair<String, Integer> item) throws Exception{
+        Pair<String, String> tempPair = new Pair<>();
+        String temp = item.getFirst();
         int i;
-        String temp = categories.get(0).first;
+
         if(categories.isEmpty()){
             throw new Exception("NOCATEGORIES");
         }
@@ -116,20 +120,24 @@ public class Category {
             }
         }
 
-        category = temp.substring(0, i-1);
-        subCategory = temp.substring(i+1, temp.length());
-
-    }
-
-    public String getCategoriesAndSubCategories(int element) throws Exception{
-
-        if(categories.isEmpty()){
-            throw new Exception("NOCATEGORIES");
+        if(i != temp.length()){
+            tempPair.setFirst(temp.substring(0, i-1));
+            tempPair.setSecond(temp.substring(i+1, temp.length()));
+        }else{
+            tempPair.setFirst(temp);
+            tempPair.setSecond(null);
         }
 
-
-
-        return null;
+        return tempPair;
     }
 
+
+
+    public String getCategory() {
+        return categoryAndSub.getFirst();
+    }
+
+    public String getSubCategory() {
+        return categoryAndSub.getSecond();
+    }
 }

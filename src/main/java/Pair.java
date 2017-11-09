@@ -1,12 +1,33 @@
 /*https://stackoverflow.com/questions/156275/what-is-the-equivalent-of-the-c-pairl-r-in-java*/
 public class Pair<FIRST, SECOND> implements Comparable<Pair<FIRST, SECOND>> {
 
-    public final FIRST first;
-    public final SECOND second;
+    private FIRST first;
+    private SECOND second;
 
     Pair(FIRST first, SECOND second) {
         this.first = first;
         this.second = second;
+    }
+
+    Pair() {
+        this.first = null;
+        this.second = null;
+    }
+
+    public void setFirst(FIRST first){
+        this.first = first;
+    }
+
+    public void setSecond(SECOND second){
+        this.second = second;
+    }
+
+    public FIRST getFirst() {
+        return first;
+    }
+
+    public SECOND getSecond() {
+        return second;
     }
 
     public static <FIRST, SECOND> Pair<FIRST, SECOND> of(FIRST first,
