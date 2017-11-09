@@ -1,0 +1,306 @@
+body {
+  /*padding: 50px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*background-color: #FBFBFB;*/
+
+}
+
+a {
+  color: #00B7FF;
+}
+
+/* **********	Custom Form Fields		********** */
+h2 {
+	/*grid-row: auto;*/
+	text-align: center;
+}
+
+
+/* ************************************************** */
+/* ************** AAM custom divs styles *************** */
+
+.USA, .LRA {
+	margin: 10px;
+
+	/*border: 2px dotted gray;*/
+	/*border-radius: 3px;*/
+	/*padding: 10px;*/
+}
+
+.USA {
+	max-width: 1000px;
+
+	/*display: grid;*/
+	/*grid-template-rows: 1fr 1fr;*/
+
+	/*border: 1px #CCC solid;*/
+	/*height: 100%;*/
+
+	/*background-color: #FBB;*/
+}
+
+.LRA {
+	max-width: 400px;
+
+	background-color: #F3F3F3;
+}
+
+.aam-content-pane {
+	margin-top: 6%;
+}
+
+.aam-row-padded {
+	/*order: top right bottom left*/
+	padding: 0px 5% 0px 5%;
+}
+
+/* styles for the forms */
+.search, .upload {
+	width: 100%;
+	padding: 20px;
+}
+.login {
+	display: none;
+}
+.register {
+
+}
+.login, .register {
+	padding: 20px;	
+}
+
+/* ************************************************** */
+/* ************** AAM custom buttons and fields *************** */
+
+.aam-btn {
+	font-size: 1.5rem;
+
+	background-color: #C4C4C4;
+
+	padding: 5px 25px 5px 25px;
+	margin: auto;
+
+	border: 2px black;
+	border-radius: 1px;
+
+	margin-top: 10px;
+
+	width: 40%;
+}
+.aam-btn:hover {
+	background-color: #ffc904;
+}
+
+.searchbar, .uploadbar {
+	color: black;
+
+	width: 100%;
+
+	font-size: 30px;
+	padding: 10px;
+	padding-left: 15px;
+
+	border: none;
+
+	/*box-shadow: 0px 0px 1px gray;*/
+	border: 1px #f0f0f0 solid;
+	/*border-radius: 1px;*/
+}
+.searchbar:focus, .uploadbar:focus {
+	border: 1px #ffc904 solid;
+}
+
+.lrfield {
+	background-color: transparent;
+	color: black;
+
+	width: 100%;
+
+	font-size: 24px;
+	margin: 3%;
+	padding: 8px;
+	padding-left: 15px;
+
+	border: none;
+	border-bottom: 2px gray solid;
+}
+.lrfield:focus {
+	border-bottom: 2px #ffc904 solid;
+}
+.lra-row {
+	margin: 15% auto 15% auto;
+}
+
+.search-selector {
+	width: 100%;
+}
+.search-selector-btn {
+	height: 40px;
+	color: white;
+	background-color: #D9D9D9;
+	border-radius: 0px;
+}
+
+.search-selector-btn:not([disabled]):not(.disabled).active {
+	background-color: #BDBDBD;
+	box-shadow: none;	
+}
+
+.lra-selector {
+	width: 100%;
+}
+.lra-selector-btn {
+	padding: 5px;
+	width: 100%;
+	color: white;
+	background-color: #D9D9D9;
+	border-radius: 0px;
+}
+
+.lra-selector-btn:not([disabled]):not(.disabled).active {
+	background-color: #BDBDBD;
+	box-shadow: none;	
+}
+
+.aam-container {
+}
+
+
+/* ************************************************** */
+/* ************** Results page custom styles and divs and whatever *************** */
+
+.result-list {
+	width: 100%;
+}
+
+result {
+	margin: 45px;
+	margin-bottom: 80px;
+}
+
+.result-card {
+	display: grid;
+
+	width: 100%;
+
+	grid-template-areas: "title title tools"
+						 "author inst tags"
+						 "previewlabel previewlabel previewlabel"
+						 "previewtext previewtext previewtext"
+						 "foot foot foot";
+
+	grid-template-rows: 1fr . . 3fr;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	padding: 5px;
+}
+
+.result-card>snippet {
+	padding: 10px 20px 10px 20px;
+	font-size: 15px;
+}
+.result-card>snippet>h5 {  
+	text-decoration: underline;
+}
+
+.result-card>header {
+	grid-area: title;
+	/*padding: 10px 0px 5px 10px;*/
+	font-size: 48px;
+	font-weight: bold;
+
+	vertical-align: middle;
+}
+.result-card>tools {
+	grid-area: tools;
+}
+.result-card>author,inst,tags {
+	padding: 15px;
+	
+}
+.result-card>author {
+	grid-area: author;
+
+	padding-left: 40px;
+}
+.result-card>inst {
+	grid-area: inst;
+}
+.result-card>tags {
+	grid-area: tags;
+	justify-content: end;
+}
+.result-card>preview-label {
+	grid-area: previewlabel;
+
+	padding-left: 40px;
+}
+.result-card>preview-text {
+	grid-area: previewtext;
+	padding-left: 5%;
+
+	font-size: 20px;
+}
+.foot {
+	grid-area: foot;
+}
+tools {
+	/* was playing with the idea of making this a subgrid to align the toolbar */
+	display: grid;
+	grid-template-areas: ". one two three";
+	grid-template-columns: 4fr 1fr 1fr 1fr;
+
+	grid-area: tools;
+
+	align-self: end;
+}
+tools>img {
+	margin: 5px;
+	height: 28px;
+	width: auto;
+
+	transition: height 0.125s;
+
+	align-self: end;
+}
+tools>img:hover {
+	height: 32px;
+}
+
+.remove {
+	grid-area: one;
+}
+.favorite {
+	grid-area: two;
+}
+.download {
+	grid-area: three;
+}
+.read-more {
+	
+}
+.read-more:hover {
+	text-decoration: underline;
+}
+
+.underline {
+	border-bottom: 1px solid #d1d1d1;
+}
+
+/* 				Stuff I really shouldn't have done 			 */
+/* all buttons now have black text */
+.btn {
+	color: black;
+}
+
+.grow { transition: all .125s ease; }
+.grow:hover { transform: scale(1.005); }
+
+.alert {
+	/*width: 80%;*/
+	margin: 10px;
+	display: none;
+}
+.blank-alert {
+	height: 59px;
+}

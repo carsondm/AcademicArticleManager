@@ -1,0 +1,95 @@
+extends layout
+
+mixin result(art)
+  result
+    div.container.result-card(dbid='' + art._id)
+      header.underline= art.title
+      tools.underline
+        //- , href='/remove?id=' + art._id
+        img(src='/images/Trash Can 2.png').remove
+        img(src='/images/Star 2.png').favorite
+        img(src='/images/Download 2.png').download      
+      author
+        h4= 'Author: ' + art.author 
+      inst
+        h4= 'Institution: ' + art.university
+      tags
+        h4= 'Tags: ' + art.tag
+      //- p= 'Owner: ' + art.owner
+      preview-label
+        h3 Preview
+      preview-text= art.snippet
+
+
+append scripts
+  script.
+    $(document).ready( function() {
+      //- $('.alert').hide();
+
+      var alert = $('.alert').html();
+
+      $('.read-more').click( function() {
+        $('.alert').show().delay(4000).fadeOut();
+      });
+
+      // Ajax call to remove an article
+      $('.remove').click( function() {
+
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+        console.log('Clicked remove on ' + id);
+        
+        //- Send a request to remove this article from the database
+        //- If we get a success response, hide and remove the div, if not, display error
+        //- NOTE: it appears that ajax requests look context of $(this), and this line is required to successfully remove the card if it was removed from the database
+        $.ajax({
+          method: 'GET',
+          url: '/remove?id=' + id,
+          success: function( result ) {
+            if( result == "success" ) {
+              console.log('Server responded with success');
+              //- $thisCard.hide("slide", function() {
+              //-   //- $thisCard.remove();
+              //-   $thisCard.replaceWith( $('.alert') );
+              //-   $(this).show();
+              //- });
+
+              //- this one's pretty good actually, requires jquery-ui
+              //- $thisCard.hide('blind', 250).fadeOut(200).dequeue();
+              
+
+              $thisCard.slideUp(250, function() {
+                $thisCard.parents('result').remove();
+              }).fadeOut(200).dequeue();
+
+              //- $thisCard.hide( function() {
+                //- $thisCard.show().html(alert).addClass('alert-success', 'alert').delay(1000).hide('slow', function() {
+                //-   $thisCard.parents('result').remove();
+                //- });
+              //- });
+            }
+            else{
+              console.log('There was an error: ' + result);
+            }
+          }
+        });
+      });
+    });
+
+block content
+  div.container-fluid
+
+    div.row.justify-content-md-center
+      div.alert.alert-success(role='alert')
+        | Article deleted
+
+    div.row.justify-content-md-center
+
+      div.col-md-10.result-list.justify-content-md-center
+        
+        h1 Results for: #{search}
+        h1 Search type: #{searchtype}
+
+        //- ul
+        each article in results
+            +result(article)
