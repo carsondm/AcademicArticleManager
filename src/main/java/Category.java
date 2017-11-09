@@ -7,7 +7,7 @@
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import javafx.util.Pair;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,30 +21,38 @@ import java.util.Iterator;
  */
 public class Category {
 
-    private String APIKEY = "Hide";
+    private String APIKEY = null;
     /*Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
+    private String category;
+    private String subCategory;
 
     public static void main(String[] args) {
         Category test = new Category(null,null);
 
     }
 
+    /*
+    * Sets
+    *
+    * */
     public Category(String title, String body){
+        String jsonString = null;
+        APIKEY = Keys.MEANINGCLOUD_KEY;
         body = shortenBody(body);
-        try {
-            ParseJson(
-                    requestMeaningCloud(title, body)
-            );
 
-        } catch (ParseException e) {
-            categories = null;
-            return;
+        try {
+            ParseJson(requestMeaningCloud(title,body));
         } catch (UnirestException e) {
-           categories = null;
-            return;
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+
+        category = null;
+        subCategory = null;
+        return;
 
     }
 
@@ -71,7 +79,8 @@ public class Category {
             Iterator i = jsonArray.iterator();
             while (i.hasNext()) {
                 JSONObject innerObj = (JSONObject) i.next();
-                categories.add(new Pair(innerObj.get("label"), innerObj.get("relevance")));
+                categories.add(
+                        new Pair<String, Integer>(innerObj.get("label").toString(), Integer.parseInt(innerObj.get("relevance").toString())));
             }
 
     }
@@ -92,6 +101,23 @@ public class Category {
 
         return body.substring(0, i);
 
+    }
+
+    public String getCategories() throws Exception{
+
+        if(categories.isEmpty()){
+            throw new Exception("NOCATEGORIES");
+        }
+
+
+
+
+        return null;
+    }
+
+    public String getSubCategories(){
+
+        return null;
     }
 
 }
