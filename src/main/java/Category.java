@@ -21,7 +21,7 @@ import java.util.Iterator;
  */
 public class Category {
 
-    private String APIKEY = "9177be8b428d40ddb718e71169e46750";
+    private String APIKEY = "Hide";
     /*Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
 
