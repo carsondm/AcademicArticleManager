@@ -24,8 +24,8 @@ public class Category {
     private String APIKEY = null;
     /*Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
-    private String category;
-    private String subCategory;
+    private String category = null;
+    private String subCategory = null;
 
     public static void main(String[] args) {
         Category test = new Category(null,null);
@@ -103,19 +103,31 @@ public class Category {
 
     }
 
-    public String getCategories() throws Exception{
+    public void getCategoriesAndSubCategories() throws Exception{
+        int i;
+        String temp = categories.get(0).first;
+        if(categories.isEmpty()){
+            throw new Exception("NOCATEGORIES");
+        }
+
+        for(i = 0; i < temp.length(); i++){
+            if(temp.charAt(i) == '>'){
+                break;
+            }
+        }
+
+        category = temp.substring(0, i-1);
+        subCategory = temp.substring(i+1, temp.length());
+
+    }
+
+    public String getCategoriesAndSubCategories(int element) throws Exception{
 
         if(categories.isEmpty()){
             throw new Exception("NOCATEGORIES");
         }
 
 
-
-
-        return null;
-    }
-
-    public String getSubCategories(){
 
         return null;
     }
