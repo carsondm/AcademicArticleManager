@@ -1,0 +1,126 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/* **********	Custom Form Fields		********** */
+h2 {
+	grid-row: auto;
+	text-align: center;
+}
+
+.aam-btn {
+	font-size: 1.5rem;
+
+	background-color: black;
+
+	padding: 5px 25px 5px 25px;
+	margin: auto;
+
+	border: 2px black;
+	border-radius: 1px;
+
+	/*width: 50%;*/
+}
+.aam-btn:hover {
+	background-color: #ffc904;
+}
+
+.search, .upload {
+	display: grid;
+
+	grid-template-columns: 1fr;
+
+	margin: auto;
+	width: 80%;
+
+	padding: 20px;
+}
+
+.searchbar, .uploadbar {
+	color: black;
+
+	grid-column: 1 / 2;
+
+	font-size: 30px;
+	padding: 10px;
+	padding-left: 15px;
+
+	margin: 5px;
+	margin-bottom: 10px;
+
+	border: 1px gray solid;
+	border-radius: 1px;
+}
+.searchbar:focus, .uploadbar:focus {
+	border: 1px #ffc904 solid;
+}
+
+.login, .register {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-row-gap: 10px;
+
+	padding: 20px;	
+}
+.lrfield {
+	background-color: transparent;
+	color: black;
+
+	font-size: 24px;
+	margin: 5px;
+	padding: 8px;
+	padding-left: 15px;
+
+	grid-column: 1 / 2;
+	grid-row: auto;
+
+	border: none;
+	border-bottom: 2px gray solid;
+}
+.lrfield:focus {
+	border-bottom: 2px #ffc904 solid;
+}
+
+.search-selector {
+	/*width: 100%;*/
+	grid-column: 1 / 2;
+}
+.btn-search {
+	width: 33.3%;
+	color: white;
+	background-color: black;
+	border-radius: 0px;
+}
+.btn-search:active, .btn-search:focus, .btn-search:checked {
+	background-color: gray;
+}
+.aam-container {
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+	grid-template-rows: 1fr;
+}
+/* **********	Debugging things	********** */
+
+.USA, .LRA {
+	/*border: 2px dotted gray;*/
+	/*border-radius: 3px;*/
+	/*padding: 10px;*/
+}
+
+.USA {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+
+	border: 1px #CCC solid;
+
+	/*background-color: #FBB;*/
+}
+
+.LRA {
+	background-color: #BBB;
+}
