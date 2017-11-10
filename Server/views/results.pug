@@ -20,12 +20,12 @@ mixin result(art)
         h3 Preview
       preview-text= art.snippet
 
+append styles
+  link(href='./stylesheets/results.css' rel='stylesheet')
 
 append scripts
   script.
     $(document).ready( function() {
-      //- $('.alert').hide();
-
       var alert = $('.alert').html();
 
       $('.read-more').click( function() {
@@ -48,25 +48,10 @@ append scripts
           success: function( result ) {
             if( result == "success" ) {
               console.log('Server responded with success');
-              //- $thisCard.hide("slide", function() {
-              //-   //- $thisCard.remove();
-              //-   $thisCard.replaceWith( $('.alert') );
-              //-   $(this).show();
-              //- });
-
-              //- this one's pretty good actually, requires jquery-ui
-              //- $thisCard.hide('blind', 250).fadeOut(200).dequeue();
-              
 
               $thisCard.slideUp(250, function() {
                 $thisCard.parents('result').remove();
               }).fadeOut(200).dequeue();
-
-              //- $thisCard.hide( function() {
-                //- $thisCard.show().html(alert).addClass('alert-success', 'alert').delay(1000).hide('slow', function() {
-                //-   $thisCard.parents('result').remove();
-                //- });
-              //- });
             }
             else{
               console.log('There was an error: ' + result);
@@ -77,19 +62,32 @@ append scripts
     });
 
 block content
-  div.container-fluid
+  div.container
 
     div.row.justify-content-md-center
       div.alert.alert-success(role='alert')
         | Article deleted
 
+    div.row
+      form(method='POST' action='/search' style='width: 100%;')
+        div.result-list-header
+          h4 Results for:
+          input.form-control(type='text' placeholder='Query' name='query' value=''+search ? search : '')
+          h4 by
+          div.dropdown
+            button.btn.btn-secondary.dropdown-toggle(type="buttons" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+              |  #{searchtype ? searchtype : 'Query Type'}
+            div.dropdown-menu(aria-labelledby="dropdownMenuButton")
+              a.dropdown-item(href='#') Keyword
+              a.dropdown-item(href='#') Author
+              a.dropdown-item(href='#') DOI         
+              a.dropdown-item(href='#') Institute
+          input.btn.btn-primary(type='submit' value='Search')
+          //- p.advanced(href='#') Advanced
+          //- input.lrfield(type='text' placeholder='Query Type' name='querytype')
+
     div.row.justify-content-md-center
-
-      div.col-md-10.result-list.justify-content-md-center
-        
-        h1 Results for: #{search}
-        h1 Search type: #{searchtype}
-
+      div.container.result-list.justify-content-md-center
         //- ul
         each article in results
             +result(article)

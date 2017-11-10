@@ -7,7 +7,7 @@ block content
   div.container-fluid
     h1 This will not be in the final product  
     div.row.justify-content-md-center.aam-content-pane
-      div.col-sm-10
+      div.container
 
         form.create.justify-content-md-center(method='POST' action='/upload/manualcreate')
           h2 Create a new article manually
@@ -29,5 +29,5 @@ block content
             div.col-sm-8.bigtext
               textarea.form-control(type='text' placeholder='Article text' name='text')
 
-          div.row.lra-row
-            input.btn.aam-btn.btn-primary(type='submit' value='Create')
+          .row
+            input.btn.btn-primary(type='submit' value='Create')

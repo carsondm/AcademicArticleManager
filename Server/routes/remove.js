@@ -19,12 +19,12 @@ router.get('/', function(req, res, next) {
     // check that the user trying to delete the file is the owner
     // 
     // This will be checked against a session cookie when accounts are implemented
-    // if( req.body.user != result.owner ) {
-    if( 0 ) {
-      console.log('Unauthorized deletion attempt');
+    if( req.session.passport.user != result.owner ) {
+      console.log(req.session.passport.user + ' tried to remove ' + result.owner + '\'s article.');
       return res.send( 'unauthorized' );
     }
     else {
+      result.remove();
       console.log('Removed an article from the database');
       return res.send( 'success' );
     }
