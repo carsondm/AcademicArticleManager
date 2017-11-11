@@ -3,6 +3,9 @@
 * Using the Meaningcloud api it will categorize that text by category and sub category
 * To access the information use getCategory() and getSubCategory()
 *
+* Reason for this class:
+* One of the functionality requirements is to be able to categorize article using parsed information.
+*
 * Programmer: Mark Kenneth Alano
 * Date: 11/9/2017
 *

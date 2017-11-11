@@ -1,8 +1,9 @@
-/**
- * Created by gunbo on 11/9/2017.
- */
-public class CategoryUnitTesting {
+import java.util.ArrayList;
 
+/**
+ * Created by gunbo on 11/11/2017.
+ */
+public class PDFTOJSONUnitTesting {
     public static void main(String[] args) {
         String title = "A Photovoltaic Generation System Based on Wide\n" +
                 "Voltage-Gain DC-DC Converter and Differential\n" +
@@ -27,8 +28,23 @@ public class CategoryUnitTesting {
                 "Keywords: Photovoltaic system, resonant switched capacitor, dual phase-shift control, soft\n" +
                 "switching. ";
 
-        Category test = new Category(title,text);
+        String doi = "000-000-000-000";
+        ArrayList<String> authors = new ArrayList<>();
+        authors.add("Donald Trump");
+        authors.add("Some One");
+        authors.add("Shia Lebeouf");
+        ArrayList<String> tags = new ArrayList<>();
+        tags.add("Cool");
+        tags.add("Awesome");
+        tags.add("Clickbait");
+
+        String category = "Computer and stuff";
+        String subCategory = "VR-Ready";
+        String dateOfPublication = "12/25/2017";
+
+        PDFTOJSON test = new PDFTOJSON(title,text,doi,authors,tags,category,subCategory,dateOfPublication);
+
+        System.out.println(test.getJsonString());
 
     }
-
 }
