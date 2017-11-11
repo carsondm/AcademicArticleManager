@@ -10,12 +10,14 @@ router.get('/', function(req, res, next) {
   Article.find( function(err, results) {
   	if(err) return console.log(err);
   	
-	res.render('results', { 
-		title: 'AAM | Results', 
-		search: req.query.search,
-  	searchtype: req.query.options,
-		results: results });
-  });
+  	res.render('results', { 
+  		title: 'AAM | Results', 
+  		search: req.query.search,
+    	searchtype: req.query.options,
+  		results: results });
+    });
+
+  // Add find by and conditionals here for better searching
 });
 
 module.exports = router;

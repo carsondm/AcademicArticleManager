@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -29,10 +31,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('express-session')({
+app.use(session({
     secret: 'AAM',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    store: new mongoStore({
+      mongooseConnection: mongoose.connection,
+    }), 
 }));
 app.use(passport.initialize());
 app.use(passport.session());

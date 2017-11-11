@@ -17,19 +17,20 @@ html
   
   body
     nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-      a.navbar-brand(href='index')
-        h3 Academic Article Manager
-        
-      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
-        span.navbar-toggler-icon
+      .container
+        a.navbar-brand(href='index')
+          img.d-inline-block.align-top(src='../images/BookIcon.png' height='30' width=auto)
 
-      div.collapse.navbar-collapse(id='navbarSupportedContent')
-        ul.navbar-nav
-          li.nav-item
-            a.nav-link(href="index") Index
-          li.nav-item
-            a.nav-link(href="results") Results
-          li.nav-item
-            a.nav-link(href="upload") Upload (create)
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+
+        div.collapse.navbar-collapse(id='navbarNav')
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              a.nav-link(href="index") Index
+            li.nav-item
+              a.nav-link(href="results") Results
+            li.nav-item
+              a.nav-link(href="upload") Upload (create)
 
     block content
