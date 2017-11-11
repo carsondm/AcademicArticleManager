@@ -1,4 +1,4 @@
-/*
+package Category;/*
 * This program takes in two inputs String Title and String Abstract of an article
 * Using the Meaningcloud api it will categorize that text by category and sub category
 * To access the information use getCategory() and getSubCategory()
@@ -29,7 +29,7 @@ import java.util.Iterator;
 public class Category {
 
     private String APIKEY = null;
-    /*Category, Relevance*/
+    /*Category.Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
     private Pair<String, String> categoryAndSub = null;
 
@@ -55,7 +55,7 @@ public class Category {
         }
 
         //System.out.println(jsonString);
-        //System.out.println("Category: " + getCategory() + " Sub-Category: " + getSubCategory());
+        //System.out.println("Category.Category: " + getCategory() + " Sub-Category.Category: " + getSubCategory());
 
     }
 

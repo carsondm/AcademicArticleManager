@@ -1,4 +1,4 @@
-/*
+package JsonFormat;/*
 * Generates the parsed pdf information into json format
 * Constructor: String title, String articleAbstract, String doi, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication
 * To get jsonformat call getJsonString() or toString method
