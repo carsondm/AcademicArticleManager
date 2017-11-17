@@ -60,12 +60,12 @@ block content
 
         div.row
           div.btn-group.lra-selector(data-toggle="buttons")
-            div.btn.lra-selector-btn.active.register-selector
-              input(type="radio" name="options" id="register" autocomplete="off" checked)
-              h3 Register
-            div.btn.lra-selector-btn.login-selector
-              input(type="radio" name="options" id="login" autocomplete="off")
+            div.btn.lra-selector-btn.login-selector.active
+              input(type="radio" name="options" id="login" autocomplete="off" checked)
               h3 Login
+            div.btn.lra-selector-btn.register-selector
+              input(type="radio" name="options" id="register" autocomplete="off")
+              h3 Register
 
         form.login.justify-content-md-center(method='POST' action='/login')
           h2 Login

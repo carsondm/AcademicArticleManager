@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fileUpload = require('express-fileupload');
 
 var Article = require('../models/article');
 
@@ -24,6 +25,27 @@ router.post('/manualcreate', function(req, res, next) {
   });
 
   res.redirect('/results');
+});
+
+router.post('/', function(req, res, next) {
+	if(!req.files) {
+		console.log('/upload was called without a file.');
+		// return res.status(400).send('No files were uploaded.');
+		return res.send(req.files.file);
+	}
+
+	let uploadedFile = req.files.file;
+
+	uploadedFile.mv('/home/ubuntu/files/' + req.files.file.name, function(err) {
+		if(err){
+			console.log('Error uploading ' + req.files.file.name + '\nError: ' + err);
+			return res.status(500).send(err);
+		} 
+
+
+		return res.send('File uploaded');
+	});
+
 });
 
 module.exports = router;

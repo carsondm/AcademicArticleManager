@@ -47,11 +47,10 @@ block content
         br
         br
 
-        form.upload.justify-content-md-center(method='post' action='/upload')
+        form.upload.justify-content-md-center(method='POST'  enctype='multipart/form-data' action='/upload')
           h1 Upload
-
           br
           br
           div.row.aam-row-padded
-            input.searchbar(type='text' placeholder='File Location' name='upload')
+            input.searchbar(type='file' placeholder='File Location' name='file' id='file')
             input.btn.aam-btn.btn-primary(type='submit' value='Upload')

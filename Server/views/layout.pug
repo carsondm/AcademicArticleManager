@@ -32,5 +32,11 @@ html
               a.nav-link(href="results") Results
             li.nav-item
               a.nav-link(href="upload") Upload (create)
+          span.navbar-text
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link(href="logout") Logout
+              li.nav-item
+                a.nav-link #{username ? username : 'username'}
 
     block content

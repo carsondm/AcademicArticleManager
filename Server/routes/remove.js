@@ -18,8 +18,17 @@ router.get('/', function(req, res, next) {
 
     // check that the user trying to delete the file is the owner
     // 
-    // This will be checked against a session cookie when accounts are implemented
-    if( req.session.passport.user != result.owner ) {
+    // Right now, the code here checks the owner against the username in the cookie. This needs to be changed
+    // to query the database for the sessionid and check which user it belongs to. We need to do this because
+    // cookie manipulation on the client side could result in anyone gaining access to remove any article from
+    // the database
+    //
+    // problem code here
+    //            V      
+    if( req.session.passport.user != result.owner ) 
+      // change to something like
+      // session user = Sessions.find({ 'sessionid': req.session.id }).username
+    {
       console.log(req.session.passport.user + ' tried to remove ' + result.owner + '\'s article.');
       return res.send( 'unauthorized' );
     }

@@ -1,7 +1,7 @@
 body {
   /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /*background-color: #FBFBFB;*/
+  background-color: #FBFBFB;
 
 }
 
@@ -60,10 +60,9 @@ h2 {
 	padding: 20px;
 }
 .login {
-	display: none;
 }
 .register {
-
+	display: none;
 }
 .login, .register {
 	padding: 20px;	

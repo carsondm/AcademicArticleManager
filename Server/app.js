@@ -9,7 +9,7 @@ var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,6 +35,7 @@ app.use(session({
     secret: 'AAM',
     resave: false,
     saveUninitialized: true,
+    maxAge: 60 * 60 * 24 * 1, // Sets max session life to 1 day 
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
     }), 
@@ -42,6 +43,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 // Passport config
 var User = require('./models/user');
