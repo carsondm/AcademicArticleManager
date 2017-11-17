@@ -14,7 +14,7 @@ mixin result(art)
       inst
         h4= 'Institution: ' + art.university
       tags
-        h4= 'Tags: ' + art.tag
+        h4= 'Tags: ' + art.tag.toString().replace(',', ', ')
       //- p= 'Owner: ' + art.owner
       preview-label
         h3 Preview
@@ -69,7 +69,7 @@ block content
         | Article deleted
 
     div.row
-      form(method='POST' action='/search' style='width: 100%;')
+      form(method='GET' action='/search' style='width: 100%;')
         div.result-list-header
           h4 Results for:
           input.form-control(type='text' placeholder='Query' name='query' value=''+search ? search : '')

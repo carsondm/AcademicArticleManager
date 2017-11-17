@@ -14,7 +14,7 @@ router.post('/manualcreate', function(req, res, next) {
     title: req.body.title,
     university: req.body.uni,
     author: req.body.author,
-    tag: req.body.tags,
+    tag: req.body.tags.split(/[ ,]+/),
     snippet: req.body.snippet,
     owner: req.body.owner
   });
@@ -24,7 +24,7 @@ router.post('/manualcreate', function(req, res, next) {
     return console.log('Manually created an article ' + art.title);
   });
 
-  res.redirect('/results');
+  res.redirect('/search');
 });
 
 router.post('/', function(req, res, next) {

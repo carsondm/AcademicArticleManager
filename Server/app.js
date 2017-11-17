@@ -13,7 +13,7 @@ var fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var results = require('./routes/results');
+var search = require('./routes/search');
 var upload = require('./routes/upload');
 var remove = require('./routes/remove');
 
@@ -54,7 +54,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', index);
 app.use('/index', index);
-app.use('/results', results);
+app.use('/search', search);
 app.use('/users', users);
 app.use('/upload', upload);
 app.use('/remove', remove);
