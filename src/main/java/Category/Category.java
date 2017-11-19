@@ -109,7 +109,7 @@ public class Category {
     }
 
     private Pair<String, String> getCategoriesAndSubCategories(Pair<String, Integer> item) throws Exception{
-        Pair<String, String> tempPair = new Pair<>();
+        Pair<String, String> tempPair = new Pair<String, String>();
         String temp = item.getFirst();
         int i;
 
