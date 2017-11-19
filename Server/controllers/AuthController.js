@@ -6,7 +6,7 @@ var userController = {};
 
 // Restrict access to root page
 userController.home = function(req, res) {
-  res.render('index', { user : req.user });
+  res.render('index', { user : req.user, message: req.flash('error') });
 };
 
 // Go to registration page
@@ -16,29 +16,44 @@ userController.register = function(req, res) {
 
 // Post registration
 userController.doRegister = function(req, res) {
-  User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
+  User.register(new User({ email : req.body.email, username: req.body.email, firstName: req.body.first, lastName: req.body.last, admin: '0' }), req.body.password, function(err, user) {
     if (err) {
       console.log('Error in AuthController.doRegister()');
-      return res.render('register', { user : user });
+      return res.render('index', { message : 'Error while attempting to Register account.' });
     }
 
     passport.authenticate('local')(req, res, function () {
       res.redirect('/');
     });
-  }); 
+  });
 };
 
 // Go to login page
 userController.login = function(req, res) {
-  res.render('login');
+  //res.render('login');
+  res.render('index');
 };
 
 // Post login
-userController.doLogin = function(req, res) {
-  passport.authenticate('local')(req, res, function () {
-    console.log(JSON.stringify(req.session) + ' just logged in');
-    res.render('login');
-  });
+userController.doLogin = function(req, res, next) {
+  // passport.authenticate('local', { failureRedirect: '/', failureFlash: 'Invalid username or password.' })(req, res, function () {
+  //   console.log(JSON.stringify(req.session) + ' just logged in');
+  //   //res.render('index-loggedin');
+  //   res.render('index-loggedin', { username: req.user.username })
+  // });
+
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) {
+      console.log('Invalid login attempt for: ' + req.body.email);
+      return res.render('index', { message: 'Invalid username or password' }); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      console.log(JSON.stringify(req.session) + ' just logged in');
+      return res.render('index-loggedin', { username: req.user.username });
+    });
+  })(req, res, next);
+
 };
 
 // logout

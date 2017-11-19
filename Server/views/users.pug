@@ -1,0 +1,26 @@
+extends layout
+
+mixin result(user)
+  result
+    //div.container.result-card(dbid='' + user._id)
+    div.container(dbid='' + user._id)
+      user
+        //p= '' + user.username + '( ' + user.email + ') | Admin: ' + user.admin + a( href='removeuser' ) +  'Remove'
+        p
+          | #{user.firstName}
+          | ( #{user.email}
+          |  )
+          |   Admin? #{user.admin}
+          | #[a(href="/deleteuser?id=" + user._id) Remove]
+          |   #[a(href='makeadmin') +Admin]
+
+
+
+block content
+  div.container
+    div.row.justify-content-md-center
+      div.container.result-list.justify-content-md-center
+        h2 Users
+        div(class="list-group")
+         each user in results
+            +result(user)(class="list-group-item")

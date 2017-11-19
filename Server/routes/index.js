@@ -13,9 +13,9 @@ var User = require('../models/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if( req.user ) {
-    return res.render('index-loggedin', { title: req.session.passport.user });
+    return res.render('index-loggedin', { title: req.session.passport.user, username: req.session.passport.user });
   }
-  res.render('index', { title: 'AAM | Index' });
+  res.render('index', { title: 'AAM | Index', message: req.flash('error') });
 });
 
 // registration route

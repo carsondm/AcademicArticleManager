@@ -7,7 +7,7 @@ mixin result(art)
       tools.underline
         //- , href='/remove?id=' + art._id
         img(src='/images/Trash Can 2.png').remove
-        img(src='/images/Star 2.png').favorite
+        img(src='/images/Star 2.png').bookmark
         img(src='/images/Download 2.png').download      
       author
         h4= 'Author: ' + art.author 
@@ -20,8 +20,6 @@ mixin result(art)
         h3 Preview
       preview-text= art.snippet
 
-append styles
-  link(href='./stylesheets/results.css' rel='stylesheet')
 
 append scripts
   script.
@@ -32,7 +30,7 @@ append scripts
         $('.alert').show().delay(4000).fadeOut();
       });
 
-      // Ajax call to remove an article
+      // Ajax call to remove an article from database with trashcan button
       $('.remove').click( function() {
 
         var $thisCard = $(this).parents('.result-card');  
@@ -55,6 +53,27 @@ append scripts
             }
             else{
               console.log('There was an error: ' + result);
+            }
+          }
+        });
+      });
+
+      $('.bookmark').click( function() {
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+
+        console.log('Clicked bookmark on ' + id);
+
+        // Ajax call to /article/bookmark/add/id/id to add bookmark to user
+        $.ajax({
+          method: 'GET',
+          url: '/article/bookmark/add/id/' + id,
+          success: function( response ) {
+            if( response == 'bookmark added') {
+              console.log('Server responsed with success');
+            }
+            else {
+              console.log('Server denied bookmarking request');
             }
           }
         });

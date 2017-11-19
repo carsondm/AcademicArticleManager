@@ -6,7 +6,7 @@ var Article = require('../models/article');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('upload', { title: 'AAM | Upload' });
+  res.render('upload', { title: 'AAM | Upload', username: req.session.passport.user });
 });
 
 router.post('/manualcreate', function(req, res, next) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
 		if(err){
 			console.log('Error uploading ' + req.files.file.name + '\nError: ' + err);
 			return res.status(500).send(err);
-		} 
+		}
 
 
 		return res.send('File uploaded');

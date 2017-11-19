@@ -70,19 +70,25 @@ block content
         form.login.justify-content-md-center(method='POST' action='/login')
           h2 Login
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email' name='username')
+            input.lrfield(type='text' placeholder='Email' name='email')
           div.row.lra-row
             input.lrfield(type='text' placeholder='Password' name='password')
           div.row.lra-row
             input.btn.aam-btn.btn-primary(type='submit' value='Login')
+          h2 #{message ? message : ''}
+          #expressFlash
 
         form.register.justify-content-md-center(method='POST' action='/register')
           h2 Register
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Email' name='username')
+            input.lrfield(type='text' placeholder='First name' name='first' required='required' oninvalid='this.setCustomValidity("Please enter a first name")' oninput='setCustomValidity("")')
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Password' name='password')
+            input.lrfield(type='text' placeholder='Last name' name='last' required='required' oninvalid='this.setCustomValidity("Please enter a last name")' oninput='setCustomValidity("")')
           div.row.lra-row
-            input.lrfield(type='text' placeholder='Confirm' name='confirm')
+            input.lrfield(type='text' placeholder='Email' name='email' pattern='^[a-z.0-9\d]+[@][a-z.0-9\d]+\.edu$' title='Enter a valid .edu email: "example@example.edu"' required='required' oninvalid='this.setCustomValidity("Please enter a valid .edu email")' oninput='setCustomValidity("")')
+          div.row.lra-row
+            input.lrfield(type='text' placeholder='Password' name='password' required='required' oninvalid='this.setCustomValidity("Please enter a valid password")' oninput='setCustomValidity("")')
+          div.row.lra-row
+            input.lrfield(type='text' placeholder='Confirm' name='confirm' required='required' oninvalid='this.setCustomValidity("Please confirm your password")' oninput='setCustomValidity("")')
           div.row.lra-row
             input.btn.aam-btn.btn-primary(type='submit' value='Register')
