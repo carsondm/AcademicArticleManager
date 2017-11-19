@@ -44,9 +44,9 @@ public class PDFTOJSONUnitTesting {
         String subCategory = "VR-Ready";
         String dateOfPublication = "12/25/2017";
 
-        PDFTOJSON test = new PDFTOJSON(title,text,doi,authors,tags,category,subCategory,dateOfPublication);
+        //PDFTOJSON test = new PDFTOJSON(title,text,doi,authors,tags,category,subCategory,dateOfPublication);
 
-        System.out.println(test.getJsonString());
+        //System.out.println(test.getJsonString());
 
     }
 }

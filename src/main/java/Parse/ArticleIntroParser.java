@@ -3,6 +3,8 @@ package Parse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessFile;
@@ -14,7 +16,8 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 
 
-public class badParser {
+public class ArticleIntroParser {
+    /*
    static String path1 = "C:\\Programming\\IdeaProjects\\GroupProject\\AcademicArticleManager-Fork\\src\\main\\resources\\TestFiles(PDF)\\Ahmed_An_Improved_Deep_2015_CVPR_paper.pdf";
    static String path2 = "C:\\Programming\\IdeaProjects\\GroupProject\\AcademicArticleManager-Fork\\src\\main\\resources\\TestFiles(PDF)\\Huang_SALICON_Reducing_the_ICCV_2015_paper.pdf";
    static String path3 = "C:\\Programming\\IdeaProjects\\GroupProject\\AcademicArticleManager-Fork\\src\\main\\resources\\TestFiles(PDF)\\Jayaraman_Learning_Image_Representations_ICCV_2015_paper.pdf";
@@ -22,13 +25,13 @@ public class badParser {
    static String path5 = "C:\\Programming\\IdeaProjects\\GroupProject\\AcademicArticleManager-Fork\\src\\main\\resources\\TestFiles(PDF)\\UCFDatabase\\06740844.pdf";
    static String path6 = "C:\\Programming\\IdeaProjects\\GroupProject\\AcademicArticleManager-Fork\\src\\main\\resources\\TestFiles(PDF)\\UCFDatabase\\06740844.pdf";
     public static void main(String[] args) {
-
-        //System.out.println(parse.getPDFText(path6));
+        ArticleIntroParser articleIntroParser = new ArticleIntroParser(path6);
+        System.out.println(articleIntroParser.getArticleIntro());
 
 
 
     }
-
+*/
     private PDFParser parser;
     private PDFTextStripper pdfStripper;
     private PDDocument pdDoc ;
@@ -39,6 +42,7 @@ public class badParser {
     private File file;
 
     private String PDFText;
+    private String articleIntro;
 
     private int pageCount;
     private String title;
@@ -47,24 +51,54 @@ public class badParser {
     private String keywords;
     private String creationDate;
 
-    public badParser(String filePath) {
+    public ArticleIntroParser(String filePath) {
         this.filePath = filePath;
         try {
             PDFText = ToText();
+            articleIntro = parseData(PDFText, 1000);
         } catch (IOException e) {
             e.printStackTrace();
             PDFText = null;
         }
 
-        System.out.println(PDFText);
+
+
 
     }
 
-    public badParser() {
+    /*https://www.ntu.edu.sg/home/ehchua/programming/java/Java_Regexe.html*/
+    private String parseData(String PDFText, int maxSpaces){
+        String regex = "intro";
+        int i = 0, j = 0;
+        int spaces = 0;
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = pattern.matcher(PDFText);
+
+        if(matcher.find()){
+            i = matcher.start();
+        }
+
+        j = i;
+        //#ofspaces == #ofwords
+        for (; j < PDFText.length();j++){
+            if(PDFText.charAt(j) == ' '){
+                spaces++;
+                if(spaces >= maxSpaces){
+                    break;
+                }
+            }
+        }
+
+
+
+
+
+        return PDFText.substring(i,j);
     }
 
     /*https://radixcode.com/pdfbox-example-code-how-to-extract-text-from-pdf-file-with-java*/
-    public String ToText() throws IOException
+    private String ToText() throws IOException
     {
         this.pdfStripper = null;
         this.pdDoc = null;
@@ -140,5 +174,9 @@ public class badParser {
 
     public String getCreationDate() {
         return creationDate;
+    }
+
+    public String getArticleIntro() {
+        return articleIntro;
     }
 }

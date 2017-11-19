@@ -24,13 +24,13 @@ public class PDFTOJSON {
     private String publisher;
     private ArrayList<String> authors;
     private ArrayList<String> tags;
-    private String category;
-    private String subCategory;
+    private ArrayList<String> category;
+    private ArrayList<String> subCategory;
     private String dateOfPublication;
 
     private String jsonString;
 
-    public PDFTOJSON(String title, String articleAbstract, String publisher, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication) {
+    public PDFTOJSON(String title, String articleAbstract, String publisher, ArrayList<String> authors, ArrayList<String> tags, ArrayList<String> category, ArrayList<String> subCategory, String dateOfPublication) {
         this.title = title;
         this.articleAbstract = articleAbstract;
         this.publisher = publisher;
@@ -51,21 +51,53 @@ public class PDFTOJSON {
         jsonObject.put("Title", title);
         jsonObject.put("Abstract", articleAbstract);
         jsonObject.put("Publisher", publisher);
-        jsonObject.put("Category",category);
-        jsonObject.put("SubCategory", subCategory);
+
+        try {
+            jsonArray = new JSONArray();
+            for (String string: category){
+                jsonArray.add(string);
+            }
+            jsonObject.put("Category", jsonArray);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            jsonObject.put("Category", null);
+        }
+
+
+        try {
+            jsonObject.put("SubCategory", subCategory);
+            jsonArray = new JSONArray();
+            for (String string: subCategory){
+                jsonArray.add(string);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            jsonObject.put("SubCategory", null);
+        }
+
+
         jsonObject.put("DateOfPublication", dateOfPublication);
 
-        jsonArray = new JSONArray();
-        for (String string: authors){
-            jsonArray.add(string);
+        try {
+            jsonArray = new JSONArray();
+            for (String string: authors){
+                jsonArray.add(string);
+            }
+            jsonObject.put("Authors", jsonArray);
+        }catch (NullPointerException e){
+            jsonObject.put("Authors", null);
         }
-        jsonObject.put("Authors", jsonArray);
 
-        jsonArray = new JSONArray();
-        for (String string: tags){
-            jsonArray.add(string);
+
+        try{
+            jsonArray = new JSONArray();
+            for (String string: tags){
+                jsonArray.add(string);
+            }
+            jsonObject.put("Tags", jsonArray);
+        }catch (NullPointerException e){
+            jsonObject.put("Tags", null);
         }
-        jsonObject.put("Tags", jsonArray);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(jsonObject);
