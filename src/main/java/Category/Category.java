@@ -50,6 +50,9 @@ public class Category {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            categories = null;
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,9 +73,9 @@ public class Category {
     }
 
     /*https://examples.javacodegeeks.com/core-java/json/java-json-parser-example/*/
-    private ArrayList<Pair<String, Integer>> ParseJson(String json) throws ParseException{
+    private ArrayList<Pair<String, Integer>> ParseJson(String json) throws ParseException, NullPointerException{
             //For test only
-            //FileReader reader = new FileReader("C:\\Programming\\IdeaProjects\\GroupProject\\ParserMKEA\\src\\main\\resources\\Test.json");
+            //FileReader reader = new FileReader("C:\\Programming\\IdeaProjects\\GroupProject\\ParserMKEA\\src\\main\\resources\\GrobidParser.json");
             ArrayList<Pair<String, Integer>> pairArrayList = new ArrayList<>();
 
             JSONParser jsonParser = new JSONParser();
@@ -124,7 +127,7 @@ public class Category {
         }
 
         if(i != temp.length()){
-            tempPair.setFirst(temp.substring(0, i-1));
+            tempPair.setFirst(temp.substring(0, i));
             tempPair.setSecond(temp.substring(i+1, temp.length()));
         }else{
             tempPair.setFirst(temp);
@@ -136,11 +139,11 @@ public class Category {
 
 
 
-    public String getCategory() {
+    public String getCategory() throws NullPointerException {
         return categoryAndSub.getFirst();
     }
 
-    public String getSubCategory() {
+    public String getSubCategory() throws NullPointerException {
         return categoryAndSub.getSecond();
     }
 }

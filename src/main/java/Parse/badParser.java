@@ -56,12 +56,7 @@ public class badParser {
             PDFText = null;
         }
 
-        try {
-            extractMetaData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        System.out.println(PDFText);
 
     }
 

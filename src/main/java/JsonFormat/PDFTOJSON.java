@@ -1,6 +1,6 @@
 package JsonFormat;/*
 * Generates the parsed pdf information into json format
-* Constructor: String title, String articleAbstract, String doi, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication
+* Constructor: String title, String articleAbstract, String publisher, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication
 * To get jsonformat call getJsonString() or toString method
 *
 * Reason for this class:
@@ -13,12 +13,15 @@ package JsonFormat;/*
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 public class PDFTOJSON {
     private String title;
     private String articleAbstract;
-    private String doi;
+    private String publisher;
     private ArrayList<String> authors;
     private ArrayList<String> tags;
     private String category;
@@ -27,10 +30,10 @@ public class PDFTOJSON {
 
     private String jsonString;
 
-    public PDFTOJSON(String title, String articleAbstract, String doi, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication) {
+    public PDFTOJSON(String title, String articleAbstract, String publisher, ArrayList<String> authors, ArrayList<String> tags, String category, String subCategory, String dateOfPublication) {
         this.title = title;
         this.articleAbstract = articleAbstract;
-        this.doi = doi;
+        this.publisher = publisher;
         this.authors = authors;
         this.tags = tags;
         this.category = category;
@@ -47,7 +50,7 @@ public class PDFTOJSON {
 
         jsonObject.put("Title", title);
         jsonObject.put("Abstract", articleAbstract);
-        jsonObject.put("DOI", doi);
+        jsonObject.put("Publisher", publisher);
         jsonObject.put("Category",category);
         jsonObject.put("SubCategory", subCategory);
         jsonObject.put("DateOfPublication", dateOfPublication);
@@ -64,7 +67,11 @@ public class PDFTOJSON {
         }
         jsonObject.put("Tags", jsonArray);
 
-        return jsonObject.toString();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(jsonObject);
+
+
+        return json;
     }
 
     @Override
