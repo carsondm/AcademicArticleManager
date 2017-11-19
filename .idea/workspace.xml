@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c828aecd-5854-4ed8-85a8-bd48c4c04b87" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Parse/badParser.java" afterPath="$PROJECT_DIR$/src/main/java/Parse/ArticleIntroParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Category/Category.java" afterPath="$PROJECT_DIR$/src/main/java/Category/Category.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/JsonFormat/PDFTOJSON.java" afterPath="$PROJECT_DIR$/src/main/java/JsonFormat/PDFTOJSON.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/MainParse/Parse.java" afterPath="$PROJECT_DIR$/src/main/java/MainParse/Parse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/PDFTOJSONUnitTesting.java" afterPath="$PROJECT_DIR$/src/test/java/PDFTOJSONUnitTesting.java" />
     </list>
     <ignored path="Parser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -677,7 +672,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511122296545</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fixed some bugs">
+      <created>1511133793369</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1511133793369</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -741,7 +743,8 @@
     <MESSAGE value="git ignore" />
     <MESSAGE value="Grobid Parse" />
     <MESSAGE value="Integration&#10;&#10;Notes:&#10;Category accuracy is bad.&#10;Needs to pass introduction to get more accurate classification" />
-    <option name="LAST_COMMIT_MESSAGE" value="Integration&#10;&#10;Notes:&#10;Category accuracy is bad.&#10;Needs to pass introduction to get more accurate classification" />
+    <MESSAGE value="Fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
