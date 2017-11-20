@@ -20,18 +20,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Created by gunbo on 11/9/2017.
- */
+
 public class Category {
 
     private String APIKEY = null;
     /*Category.Category, Relevance*/
     private ArrayList<Pair<String, Integer>> categories = new ArrayList<>();
     private Pair<String, String> categoryAndSub = null;
+    private ArrayList<Pair<String, String>> categoryAndSubArr = new ArrayList<>();
 
     /*
     * Constructor
@@ -40,15 +40,23 @@ public class Category {
     public Category(String title, String body){
         String jsonString = null;
         APIKEY = Keys.MEANINGCLOUD_KEY;
-        body = shortenBody(body);
+        //body = shortenBody(body);
 
         try {
             jsonString = requestMeaningCloud(title,body);
             categories = ParseJson(jsonString);
-            categoryAndSub = getCategoriesAndSubCategories(categories.get(0));
+
+            //System.out.println(jsonString);
+            for (int i = 0; i < categories.size(); i++){
+                categoryAndSubArr.add(getCategoriesAndSubCategories(categories.get(i)));
+            }
+            categoryAndSub = categoryAndSubArr.get(0);
         } catch (UnirestException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            categories = null;
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,9 +78,9 @@ public class Category {
     }
 
     /*https://examples.javacodegeeks.com/core-java/json/java-json-parser-example/*/
-    private ArrayList<Pair<String, Integer>> ParseJson(String json) throws ParseException{
+    private ArrayList<Pair<String, Integer>> ParseJson(String json) throws ParseException, NullPointerException{
             //For test only
-            //FileReader reader = new FileReader("C:\\Programming\\IdeaProjects\\GroupProject\\ParserMKEA\\src\\main\\resources\\Test.json");
+            //FileReader reader = new FileReader("C:\\Programming\\IdeaProjects\\GroupProject\\ParserMKEA\\src\\main\\resources\\GrobidParser.json");
             ArrayList<Pair<String, Integer>> pairArrayList = new ArrayList<>();
 
             JSONParser jsonParser = new JSONParser();
@@ -109,7 +117,7 @@ public class Category {
     }
 
     private Pair<String, String> getCategoriesAndSubCategories(Pair<String, Integer> item) throws Exception{
-        Pair<String, String> tempPair = new Pair<>();
+        Pair<String, String> tempPair = new Pair<String, String>();
         String temp = item.getFirst();
         int i;
 
@@ -124,7 +132,7 @@ public class Category {
         }
 
         if(i != temp.length()){
-            tempPair.setFirst(temp.substring(0, i-1));
+            tempPair.setFirst(temp.substring(0, i));
             tempPair.setSecond(temp.substring(i+1, temp.length()));
         }else{
             tempPair.setFirst(temp);
@@ -135,12 +143,36 @@ public class Category {
     }
 
 
-
-    public String getCategory() {
+    public String getCategory() throws NullPointerException {
         return categoryAndSub.getFirst();
     }
 
-    public String getSubCategory() {
+    public String getSubCategory() throws NullPointerException {
         return categoryAndSub.getSecond();
+    }
+
+
+    /*
+    * Returns an arraylist of categories by iterating through the array
+    * */
+    public ArrayList<String> getCategories() throws NullPointerException{
+        ArrayList<String> result = new ArrayList<>();
+        for(int i = 0; i < categories.size(); i++){
+            result.add(categoryAndSubArr.get(i).getFirst());
+        }
+
+        return result;
+    }
+
+    /*
+    * Returns an arraylist of subcategories by iterating through the array
+    * */
+    public ArrayList<String> getSubCategories() throws NullPointerException {
+        ArrayList<String> result = new ArrayList<>();
+        for(int i = 0; i < categories.size(); i++){
+            result.add(categoryAndSubArr.get(i).getSecond());
+        }
+
+        return result;
     }
 }
