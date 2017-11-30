@@ -1,0 +1,137 @@
+extends layout
+
+mixin result(art)
+  result
+    div.container.result-card(dbid='' + art._id)
+      header.underline= art.title
+      tools.underline
+        //- , href='/remove?id=' + art._id
+        img(src='/images/Trash Can 2.png').remove
+        img(src='/images/Star 2.png').bookmark
+        img(src='/images/Download 2.png').download      
+      author
+        h4= 'Author: ' + art.author 
+      inst
+        h4= 'Institution: ' + art.university
+      tags
+        h4= 'Tags: ' + art.tag.toString().replace(',', ', ')
+      //- p= 'Owner: ' + art.owner
+      preview-label
+        h3 Preview
+      preview-text= art.snippet
+
+
+append scripts
+  script.
+    $(document).ready( function() {
+      var alert = $('.alert').html();
+
+      $('.read-more').click( function() {
+        $('.alert').show().delay(4000).fadeOut();
+      });
+
+      // Ajax call to remove an article from database with trashcan button
+      $('.remove').click( function() {
+
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+        console.log('Clicked remove on ' + id);
+        
+        //- Send a request to remove this article from the database
+        //- If we get a success response, hide and remove the div, if not, display error
+        //- NOTE: it appears that ajax requests look context of $(this), and this line is required to successfully remove the card if it was removed from the database
+        $.ajax({
+          method: 'GET',
+          url: '/remove?id=' + id,
+          success: function( result ) {
+            if( result == "success" ) {
+              console.log('Server responded with success');
+
+              $thisCard.slideUp(250, function() {
+                $thisCard.parents('result').remove();
+              }).fadeOut(200).dequeue();
+            }
+            else{
+              console.log('There was an error: ' + result);
+            }
+          }
+        });
+      });
+
+      $('.bookmark').click( function() {
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+        var $thisButton = $(this);
+
+        console.log('Clicked bookmark on ' + id);
+
+        // Ajax call to /article/bookmark/add/id/id to add bookmark to user
+        $.ajax({
+          method: 'GET',
+          url: '/article/bookmark/add/id/' + id,
+          success: function( response ) {
+            if( response == 'bookmark added') {
+              console.log('Server responsed with success');
+              $thisButton.attr('src', '/images/Star 2 - Yellow.png');
+            }
+            else {
+              console.log('Server denied bookmarking request');
+            }
+          }
+        });
+      });
+
+      $('.download').click( function() {
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+        var $thisButton = $(this);
+
+        console.log('Clicked bookmark on ' + id);
+
+        // Ajax call to /article/bookmark/add/id/id to add bookmark to user
+        $.ajax({
+          method: 'GET',
+          url: '/article/download/id/' + id,
+          success: function( response ) {
+            if( response == 'file sent') {
+              console.log('Server responsed with success');
+              $thisButton.attr('src', '/images/Download 2 - Blue.png');
+            }
+            else {
+              console.log('Server denied download request');
+            }
+          }
+        });
+      });
+    });
+
+block content
+  div.container
+
+    div.row.justify-content-md-center
+      div.alert.alert-success(role='alert')
+        | Article deleted
+
+    div.row
+      form(method='GET' action='/search' style='width: 100%;')
+        div.result-list-header
+          h4 Results for:
+          input.form-control(type='text' placeholder='Query' name='query' value=''+search ? search : '')
+          h4 by
+          div.dropdown
+            button.btn.btn-secondary.dropdown-toggle(type="buttons" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+              |  #{searchtype ? searchtype : 'Query Type'}
+            div.dropdown-menu(aria-labelledby="dropdownMenuButton")
+              a.dropdown-item(href='#') Keyword
+              a.dropdown-item(href='#') Author
+              a.dropdown-item(href='#') DOI         
+              a.dropdown-item(href='#') Institute
+          input.btn.btn-primary(type='submit' value='Search')
+          //- p.advanced(href='#') Advanced
+          //- input.lrfield(type='text' placeholder='Query Type' name='querytype')
+
+    div.row.justify-content-md-center
+      div.container.result-list.justify-content-md-center
+        //- ul
+        each article in results
+            +result(article)

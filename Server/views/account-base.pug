@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+  //- Main body of page, contains search and login boxes
+  div.container
+    div.account-page
+      div.sidebar
+        links
+          h6
+            a(href='/account') Settings
+          h6
+            a(href='/account/myarticles') My Articles
+          h6
+            a(href='/account/mybookmarks') Bookmarks
+      div.main
+        block main

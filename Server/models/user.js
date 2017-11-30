@@ -12,7 +12,7 @@ var userSchema = new Schema({
 	firstName: String,
 	lastName: String,
 	admin: Boolean,
-	bookmarks: [],
+	bookmarks: [{type: Schema.Types.ObjectId, ref: 'Article'}],
 });
 
 userSchema.methods.addBookmark = function(bookmark, callback) {

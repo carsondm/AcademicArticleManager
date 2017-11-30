@@ -1,33 +1,14 @@
 extends layout
 
-append styles
-  link(rel='stylesheet', href='/stylesheets/upload.css')
-
 block content
-  div.container-fluid
-    h1 This will not be in the final product  
-    div.row.justify-content-md-center.aam-content-pane
-      div.container
-
-        form.create.justify-content-md-center(method='POST' action='/upload/manualcreate')
-          h2 Create a new article manually
-          div.row.justify-content-md-center
-            div.col-sm-3
-              input.form-control(type='text' placeholder='Title' name='title' value='Title')
-            div.col-sm-3
-              input.form-control(type='text' placeholder='Author' name='author' value='Author')
-            div.col-sm-3
-              input.form-control(type='text' placeholder='University' name='uni' value='University')
-            div.col-sm-3
-              input.form-control(type='text' placeholder='Keywords' name='tags' value='Some tags')
-            div.col-sm-3
-              input.form-control(type='text' placeholder='User' name='owner' value='user1')
-          div.row.justify-content-md-center
-            div.col-sm-8.bigtext
-              textarea.form-control(type='text' placeholder='Snippet' name='snippet')
-                | Snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet snippet
-            div.col-sm-8.bigtext
-              textarea.form-control(type='text' placeholder='Article text' name='text')
-
-          .row
-            input.btn.btn-primary(type='submit' value='Create')
+  div.container
+    div.main
+      form.create(method='POST' enctype='multipart/form-data' action='/upload/manual/file')
+        div.row.justify-content-md-center
+          input.searchbar(type='text' placeholder='Title' name='title' value='Title' required)
+          input.searchbar(type='text' placeholder='Author' name='author' value='Author' required)
+          input.searchbar(type='text' placeholder='University' name='uni' value='University' required)
+          input.searchbar(type='text' placeholder='Keywords' name='tags' value='Some tags' required)
+          textarea.searchbar(type='text' placeholder='Snippet' name='snippet')
+          input.searchbar(type='file' placeholder='File Location' name='file' id='file' required)
+          input.aam-btn(type='submit' value='Upload')

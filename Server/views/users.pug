@@ -2,25 +2,32 @@ extends layout
 
 mixin result(user)
   result
-    //div.container.result-card(dbid='' + user._id)
     div.container(dbid='' + user._id)
       user
-        //p= '' + user.username + '( ' + user.email + ') | Admin: ' + user.admin + a( href='removeuser' ) +  'Remove'
-        p
+        p(style="float:left;padding-right:5px;")
           | #{user.firstName}
           | ( #{user.email}
           |  )
           |   Admin? #{user.admin}
-          | #[a(href="/deleteuser?id=" + user._id) Remove]
-          |   #[a(href='makeadmin') +Admin]
-
-
+          //| #[a(href="/removeuser?id=" + user._id) Remove]
+          //|   #[a(href="/makeadmin?id=" + user._id) +Admin]
+          //button.remove.btn.btn-danger(data-id=
+          //user._id) Delete
+          //button.admin.btn.btn-success(data-id=
+          //user._id) +Admin
+          form(style="float:left;" name="deleteuser", method="POST", action="/listusers/delete")
+            input#input_name(type="hidden", placeholder="", name="_id", value="" + user._id)
+            button.btn-danger#delete_user(type="submit") Remove
+          form(name="adminuser", method="POST", action="/listusers/admin")
+            input#input_name(type="hidden", placeholder="", name="_id", value="" + user._id)
+            button.btn-success#admin_user(type="submit") +Admin
 
 block content
   div.container
     div.row.justify-content-md-center
       div.container.result-list.justify-content-md-center
         h2 Users
+        h2 #{message ? message : ''}
         div(class="list-group")
          each user in results
             +result(user)(class="list-group-item")

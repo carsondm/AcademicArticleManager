@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var passport = require("passport");
 var User = require("../models/user");
+var fs = require('fs');
 
 var userController = {};
 
@@ -23,6 +24,7 @@ userController.doRegister = function(req, res) {
     }
 
     passport.authenticate('local')(req, res, function () {
+      fs.mkdir('/var/www/ArticleManager/articles/' + req.body.email);
       res.redirect('/');
     });
   });

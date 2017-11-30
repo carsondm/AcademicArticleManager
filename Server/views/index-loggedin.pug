@@ -16,6 +16,7 @@ block content
 
   //- Main body of page, contains search and login boxes
   div.container-fluid
+    h2 #{errormessage? errormessage : ''}
     div.row.justify-content-md-center.aam-content-pane
       div.col-sm-7.USA
         form.search.justify-content-md-center(method='GET' action='/search')
@@ -25,8 +26,8 @@ block content
           br
           div.row.aam-row-padded
             div.btn-group.search-selector(data-toggle="buttons")
-              div.btn.search-selector-btn.active.col-sm-10
-                input(type="radio" name="options" value="keyword" id="keyword" autocomplete="off" checked)
+              div.btn.search-selector-btn.col-sm-10
+                input(type="radio" name="options" value="tag" id="keyword" autocomplete="off" required)
                 h4 Keyword
               div.btn.search-selector-btn.col-sm-10
                 input(type="radio" name="options" value="author" id="author" autocomplete="off")
@@ -39,7 +40,7 @@ block content
                 h4 Subject
 
           div.row.aam-row-padded
-            input.searchbar(type='text' placeholder='Search' name='search')
+            input.searchbar(type='text' placeholder='Search' name='search' required)
 
           div.row.aam-row-padded
             input.btn.aam-btn.btn-primary(type='submit' value='Search' href='/search' method='POST')
@@ -47,10 +48,10 @@ block content
         br
         br
 
-        form.upload.justify-content-md-center(method='POST'  enctype='multipart/form-data' action='/upload')
+        form.upload.justify-content-md-center(method='POST'  enctype='multipart/form-data' action='/upload/manual/file')
           h1 Upload
           br
           br
           div.row.aam-row-padded
-            input.searchbar(type='file' placeholder='File Location' name='file' id='file')
+            input.searchbar(type='file' placeholder='File Location' name='file' id='file' required)
             input.btn.aam-btn.btn-primary(type='submit' value='Upload')

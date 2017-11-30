@@ -2,23 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 var Article = require('../models/article');
-
+var SearchController = require('../controllers/SearchController');
 
 // All queries can be handled with GET method, since it's not sensitive data
-router.get('/', function(req, res, next) {
-  // retrieve all articles from the article collection
-  Article.find( function(err, results) {
-  	if(err) return console.log(err);
+router.get('/', SearchController.search);
 
-  	res.render('results', {
-  		title: 'AAM | ' + req.query.search,
-  		search: req.query.search,
-    	searchtype: req.query.options,
-  		results: results,
-      username: req.session.passport.user});
-    });
+// Retrieve all articles
+router.get('/all', SearchController.retrieveAll);
 
-  // Add find by and conditionals here for better searching
-});
+// Retrieve all articles in JSON format
+router.get('/all/json', SearchController.retrieveAllJSON);
 
 module.exports = router;

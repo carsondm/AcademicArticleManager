@@ -1,0 +1,80 @@
+extends layout
+
+append scripts
+  script(src="/javascripts/pdfobject.js")
+  script.
+    $('document').ready(function() {
+      PDFObject.embed('/article/embed/id/'+'#{article._id}', "#pdfviewer", {height: '-webkit-fill-available'});
+
+      // Ajax call to remove an article from database with trashcan button
+      $('.remove').click( function() {
+
+        var $thisCard = $(this).parents('.article-page');  
+        var id = $thisCard.attr( "dbid" );
+        console.log('Clicked remove on ' + id);
+        
+        //- Send a request to remove this article from the database
+        //- If we get a success response, hide and remove the div, if not, display error
+        //- NOTE: it appears that ajax requests look context of $(this), and this line is required to successfully remove the card if it was removed from the database
+        $.ajax({
+          method: 'GET',
+          url: '/remove?id=' + id,
+          success: function( result ) {
+            if( result == "success" ) {
+              console.log('Server responded with success');
+
+              $thisCard.slideUp(250, function() {
+                $thisCard.parents('result').remove();
+              }).fadeOut(200).dequeue();
+            }
+            else{
+              console.log('There was an error: ' + result);
+            }
+          }
+        });
+      });
+
+      $('.bookmark').click( function() {
+        var $thisCard = $(this).parents('.article-page');  
+        var id = $thisCard.attr( "dbid" );
+        var $thisButton = $(this);
+
+        console.log('Clicked bookmark on ' + id);
+
+        // Ajax call to /article/bookmark/add/id/id to add bookmark to user
+        $.ajax({
+          method: 'GET',
+          url: '/article/bookmark/add/id/' + id,
+          success: function( response ) {
+            if( response == 'bookmark added') {
+              console.log('Server responsed with success');
+              $thisButton.attr('src', '/images/Star 2 - Yellow.png');
+            }
+            else {
+              console.log('Server denied bookmarking request');
+            }
+          }
+        });
+      });
+    });
+
+block content
+
+  //- Main body of page, contains search and login boxes
+  div.container
+    div.article-page(dbid=''+article._id)
+      br
+      br(style='margin: 3px')
+      div.title
+        header.underline= article.title
+      tools.tools
+        if req.user
+          img(src='/images/Trash Can 2.png').remove
+          img(src='/images/Star 2.png').bookmark
+          a(href='/article/download/id/'+article._id download='testfile.pdf').download
+            img(src='/images/Download 2.png')  
+        else
+          a(href='/article/download/id/'+article._id download='testfile.pdf').download
+            img(src='/images/Download 2.png')            
+
+      div.viewer(id="pdfviewer")

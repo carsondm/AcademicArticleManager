@@ -1,25 +1,48 @@
 extends layout
 
-mixin result(art)
+mixin result(art, admin)
   result
-    div.container.result-card(dbid='' + art._id)
-      header.underline= art.title
-      tools.underline
-        //- , href='/remove?id=' + art._id
-        img(src='/images/Trash Can 2.png').remove
-        img(src='/images/Star 2.png').bookmark
-        img(src='/images/Download 2.png').download      
-      author
-        h4= 'Author: ' + art.author 
-      inst
-        h4= 'Institution: ' + art.university
-      tags
-        h4= 'Tags: ' + art.tag.toString().replace(',', ', ')
-      //- p= 'Owner: ' + art.owner
-      preview-label
-        h3 Preview
-      preview-text= art.snippet
-
+      if admin
+        div.container.result-card(dbid='' + art._id)
+          header.underline
+            a(href='/article/view/id/'+art._id)= art.title
+          tools.underline
+            img(src='/images/Trash Can 2.png').remove
+            img(src='/images/Star 2.png').bookmark
+            a(href='/article/download/id/'+art._id download='testfile.pdf').download
+              img(src='/images/Download 2.png')
+          info
+            author
+              h5= 'Author: ' + art.author.toString().replace(/,/g, ', ') 
+            inst
+              h5= 'Institution: ' + art.university
+            tags
+              h5= 'Tags: ' + art.tag.toString().replace(/,/g, ', ')
+            category
+              h5= 'Category: ' + art.category.toString().replace(/,/g, ', ')  
+          preview-label
+            h3 Abstract
+          preview-text= art.snippet
+      else
+        div.container.result-card(dbid='' + art._id)
+          header.underline
+            a(href='/article/view/id/'+art._id)= art.title
+          tools.underline
+            img(src='/images/Star 2.png').bookmark
+            a(href='/article/download/id/'+art._id download='testfile.pdf').download
+              img(src='/images/Download 2.png')
+          info
+            author
+              h5= 'Author: ' + art.author.toString().replace(/,/g, ', ') 
+            inst
+              h5= 'Institution: ' + art.university
+            tags
+              h5= 'Tags: ' + art.tag.toString().replace(/,/g, ', ')
+            category
+              h5= 'Category: ' + art.category.toString().replace(/,/g, ', ')  
+          preview-label
+            h3 Abstract
+          preview-text= art.snippet
 
 append scripts
   script.
@@ -61,6 +84,7 @@ append scripts
       $('.bookmark').click( function() {
         var $thisCard = $(this).parents('.result-card');  
         var id = $thisCard.attr( "dbid" );
+        var $thisButton = $(this);
 
         console.log('Clicked bookmark on ' + id);
 
@@ -71,12 +95,21 @@ append scripts
           success: function( response ) {
             if( response == 'bookmark added') {
               console.log('Server responsed with success');
+              $thisButton.attr('src', '/images/Star 2 - Yellow.png');
             }
             else {
               console.log('Server denied bookmarking request');
             }
           }
         });
+      });
+
+      $('.download').click( function() {
+        var $thisCard = $(this).parents('.result-card');  
+        var id = $thisCard.attr( "dbid" );
+        var $thisButton = $(this);
+
+        console.log('Clicked download on ' + id);
       });
     });
 
@@ -87,26 +120,32 @@ block content
       div.alert.alert-success(role='alert')
         | Article deleted
 
-    div.row
-      form(method='GET' action='/search' style='width: 100%;')
-        div.result-list-header
-          h4 Results for:
-          input.form-control(type='text' placeholder='Query' name='query' value=''+search ? search : '')
-          h4 by
-          div.dropdown
-            button.btn.btn-secondary.dropdown-toggle(type="buttons" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              |  #{searchtype ? searchtype : 'Query Type'}
-            div.dropdown-menu(aria-labelledby="dropdownMenuButton")
-              a.dropdown-item(href='#') Keyword
-              a.dropdown-item(href='#') Author
-              a.dropdown-item(href='#') DOI         
-              a.dropdown-item(href='#') Institute
-          input.btn.btn-primary(type='submit' value='Search')
-          //- p.advanced(href='#') Advanced
-          //- input.lrfield(type='text' placeholder='Query Type' name='querytype')
+    div.row(style='background-color: white')
+      form.search.justify-content-md-center(method='GET' action='/search')
+        br
+        div.row.aam-row-padded
+          div.btn-group.search-selector(data-toggle="buttons")
+            div.btn.search-selector-btn.col-sm-10
+              input(type="radio" name="options" value="tag" id="keyword" autocomplete="off" required)
+              h4 Keyword
+            div.btn.search-selector-btn.col-sm-10
+              input(type="radio" name="options" value="author" id="author" autocomplete="off")
+              h4 Author
+            div.btn.search-selector-btn.col-sm-10
+              input(type="radio" name="options" value="doi" id="doi" autocomplete="off")
+              h4 DOI
+            div.btn.search-selector-btn.col-sm-10
+              input(type="radio" name="options" value="subject" id="subject" autocomplete="off")
+              h4 Subject
+
+        div.row.aam-row-padded
+          input.searchbar(type='text' placeholder='Search' name='search' required)
+
+        div.row.aam-row-padded
+          input.btn.aam-btn.btn-primary(type='submit' value='Search' href='/search' method='POST')
 
     div.row.justify-content-md-center
       div.container.result-list.justify-content-md-center
         //- ul
         each article in results
-            +result(article)
+            +result(article, admin)

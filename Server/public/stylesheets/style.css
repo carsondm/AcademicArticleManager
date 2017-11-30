@@ -164,7 +164,11 @@ result {
 .result-card {
     display: grid;
     width: 100%;
-    grid-template-areas: "title title tools" "author inst tags" "previewlabel previewlabel previewlabel" "previewtext previewtext previewtext" "foot foot foot";
+    grid-template-areas:    "title title tools" 
+                            "info info info" 
+                            "previewlabel previewlabel previewlabel" 
+                            "previewtext previewtext previewtext" 
+                            "foot foot foot";
     grid-template-rows: 1fr . . 3fr;
     grid-template-columns: 1fr 1fr 1fr;
     padding: 5px;
@@ -181,9 +185,15 @@ result {
     grid-area: title;
     /*padding: 10px 0px 5px 10px;*/
     
-    font-size: 48px;
+    font-size: 32px;
     font-weight: bold;
     vertical-align: middle;
+}
+.result-card>info{
+    grid-area: info;
+    display: grid;
+    padding-left: 10px;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 .result-card>tools {
     grid-area: tools;
@@ -191,7 +201,7 @@ result {
 .result-card>author,
 inst,
 tags {
-    padding: 15px;
+    /*padding: 15px;*/
 }
 .result-card>author {
     grid-area: author;
@@ -199,9 +209,11 @@ tags {
 }
 .result-card>inst {
     grid-area: inst;
+    font-size: 16px;
 }
 .result-card>tags {
     grid-area: tags;
+    font-size: 16px;
     justify-content: end;
 }
 .result-card>preview-label {
@@ -250,15 +262,18 @@ tools>img:hover {
 .underline {
     border-bottom: 1px solid #d1d1d1;
 }
+.bookmarked {
+    background-image: '/public/graphics/Star 2 - Yellow.png';
+}
 
 /* _______________________ Acount Page CSS _______________________ */
 .account-page {
 	display: grid;
 
-	grid-template-areas:'title title' 
+	grid-template-areas:'. .' 
                         'sidebar main';
-	grid-template-columns: 25% 75%;
-	grid-template-rows: 1fr 5fr;
+	grid-template-columns: 18% 82%;
+	grid-template-rows: 50px auto;
 
 	margin: 0px 3% 0px 3%;
 }
@@ -269,7 +284,16 @@ tools>img:hover {
 }
 .account-page>.sidebar {
 	grid-area: sidebar;
-	/*background-color: red;*/
+	background-color: white;
+    padding: 15px;
+}
+.sidebar>links>h6 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.sidebar>link>h6>a:hover {
+    color: black;
 }
 .account-page>.main {
 	grid-area: main;
@@ -281,7 +305,7 @@ tools>img:hover {
 							'email'
 							'password';
 
-    grid-template-rows: 3fr 3fr 4fr;
+    grid-template-rows: repeat(1fr);
 	/*background-color: blue;*/
 
     /*justify-content: start;*/
@@ -290,20 +314,28 @@ tools>img:hover {
     align-items: start;
 }
 .main>.name{
-    grid-area: name;
+    /*grid-area: name;*/
     display: grid;
     grid-template-columns: 3fr 3fr 2fr;
 }
 .main>.email{
-    grid-area: email;
+    /*grid-area: email;*/
     display: grid;
     grid-template-columns: 3fr 1fr;
 }
 .main>.password{
-    grid-area: password;
+    /*grid-area: password;*/
     display: grid;
     /*grid-template-rows: 2fr 2fr 2fr;*/
     grid-template-columns: 3fr 1fr;
+}
+.main>.name, .email{
+    margin-bottom: 80px;
+}
+.main>.name, .email, .password {
+    /*grid-gap: 10px;*/
+    /*grid-row-gap: 5px;*/
+    width: 100%;
 }
 .main>form>.searchbar {
     width: auto;
@@ -323,13 +355,42 @@ tools>img:hover {
     margin: auto;
     padding: 10px;
 }
-.main>.name, .email, .password {
-    /*grid-gap: 10px;*/
-    /*grid-row-gap: 5px;*/
-    width: 100%;
+
+/* Upload Page */
+
+/* Article View */
+.article-page {
+    display: grid;
+
+    grid-template-areas:'title tools' 
+                        'main main';
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 1fr 850px;
+
+    margin: 0px 3% 0px 3%;
 }
-
-
+.article-page>.title{
+    grid-area: title;
+}
+.article-page>.title>header{
+    
+    font-size: 30px;
+    font-weight: bold;
+    /*vertical-align: middle;*/
+}
+.article-page>.tools{
+    grid-area: tools;
+}
+.article-page>.viewer{
+    grid-area: main;
+    height: -webkit-fill-available;
+}
+.article-page>.pdfobject-container{
+    /*height: -webkit-fill-available;*/
+}
+.pdf-object{
+    height: -webkit-fill-available;
+}
 /* 				Stuff I really shouldn't have done 			 */
 /* all buttons now have black text */
 .btn {

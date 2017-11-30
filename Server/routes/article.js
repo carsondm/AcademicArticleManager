@@ -24,31 +24,12 @@ router.get('/', function(req, res, next) {
 // Add this article to bookmarks
 router.get('/bookmark/add/id/:dbid/', articleController.addBookmark);
 
-// router.get('/bookmark/add/id/:dbid/', function(req, res, next) {
-//   articleController.addBookmark;
-  // if( req.isAuthenticated ) {
-  //   // User.update({username: req.user.username}, {$addToSet: {bookmarks: req.params.dbid}}, {new: true},
-  //   //   function(err) {
-  //   //     if(err) { return console.log(err); }
+router.get('/bookmark/remove/id/:dbid/', articleController.removeBookmark);
 
-  //   //     return console.log('Added bookmark to ' + req.user.username + '\'s bookmarks');
-  //   //   });
-  //   // User.findOne( { username: req.user.username }, function(err, user) {
-  //   //   // I wanted this code to work like this, but could not find out
-  //   //   //  how to do it. Should probably be fixed eventually
-  //   //   // req.user.addBookmark(req.params.dbid);
+router.get('/download/id/:dbid', articleController.downloadOriginal);
 
-  //   //   user.update({ $addToSet: {bookmarks: req.params.dbid}});
+router.get('/view/id/:dbid', articleController.viewArticle);
 
-  //   //   return res.send('bookmark added');
-  //   // });
-
-  //   // return console.log('Couldn\'t find a user in article.js /bookmark/add');
-  // }
-  // else {
-  //   res.send('unauthorized bookmark');
-  //   return console.log('Unauthenticated request to bookmark.');
-  // }
-// });
+router.get('/embed/id/:dbid', articleController.embed);
 
 module.exports = router;

@@ -1,49 +1,27 @@
-extends layout
+extends account-base
 
-block content
+block main
+  h1 Settings
+  form.name(method='POST' action='/account/update-name')
+    h2 Name
+    div
+    div
+    input.searchbar(type='text' name='first' value=user.firstName)
+    input.searchbar(type='text' name='last' value=user.lastName)
+    input.aam-btn(type='submit' value='Update')
+        
+  form.email.justify-content-md-center(method='POST' action='/account/update-email')
+    h2 Email
+    div
+    input.searchbar(type='text' name='email' value=user.username)
+    input.aam-btn(type='submit' value='Update')
 
-  //- Main body of page, contains search and login boxes
-  div.container
-    div.account-page
-      h2 #{user.username}'s acount page
-      div.sidebar
-        links
-          p some
-          p sidebar
-          p text
-          p some
-          p sidebar
-          p text
-          p some
-          p sidebar
-          p text
-          p some
-          p sidebar
-          p text
-      div.main
-        form.name(method='POST' action='/account/update-name')
-          h2 Name
-          div
-          div
-          input.searchbar(type='text' name='first' value=user.firstName)
-          input.searchbar(type='text' name='last' value=user.lastName)
-          input.aam-btn(type='submit' value='Update')
-              
-        form.email.justify-content-md-center(method='POST' action='/account/update-email')
-          h2 Email
-          div
-          input.searchbar(type='text' name='email' value=user.username)
-          input.aam-btn(type='submit' value='Update')
-
-        form.password.justify-content-md-center(method='POST' action='/account/update-password')
-          h2 Password
-          div
-          input.searchbar(type='text' name='currentpw' placeholder='Current password')
-          div
-          input.searchbar(type='text' name='newpw' placeholder='New password')
-          div
-          input.searchbar(type='text' name='confirmpw' placeholder='Confirm password')
-          input.aam-btn(type='submit' value='Update')
-
-    div.container
-      p #{user.bookmarks}         
+  form.password.justify-content-md-center(method='POST' action='/account/update-password')
+    h2 Password
+    div
+    input.searchbar(type='text' name='currentpw' placeholder='Current password')
+    div
+    input.searchbar(type='text' name='newpw' placeholder='New password')
+    div
+    input.searchbar(type='text' name='confirmpw' placeholder='Confirm password')
+    input.aam-btn(type='submit' value='Update')

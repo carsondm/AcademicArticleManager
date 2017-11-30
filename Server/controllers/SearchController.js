@@ -2,53 +2,128 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var Article = require("../models/article");
 
-var userController = {};
+// Retrieve all articles in the db
+exports.search = function(req, res, next) {
+  // retrieve all articles from the article collection
+  var type = req.query.options;
+  var search = req.query.search;
+  var usrname;
+  if( req.user ) usrname = req.user.username;
+  console.log('Searching for ' + search + ' by ' + type + '.');
+  // search = search.toLowerCase();
 
-// Restrict access to root page
-userController.home = function(req, res) {
-  res.render('index', { user : req.user });
-};
+  // Article.find({ type: { $in: [search]} },  function(err, results) {
+  //   if(err) return console.log(err);
+  switch(type) {
+    case 'tag':
+      Article.find({'tag': { $in: [search]}}, function(err, results) {
+        res.render('results',
+        {
+          title: 'AAM | ' + req.query.search,
+          username: usrname,
+          search: req.query.search,
+          searchtype: req.query.options,
+          results: results
+        });
+      });
+      break;
+    case 'author':
+      Article.find({'author': search}, function(err, results) {
+        res.render('results',
+        {
+          title: 'AAM | ' + req.query.search,
+          username: usrname,
+          search: req.query.search,
+          searchtype: req.query.options,
+          results: results
+        });
+      });
+      break;
+    case 'doi':
+      Article.find({'doi': search}, function(err, results) {
+        res.render('results',
+        {
+          title: 'AAM | ' + req.query.search,
+          username: usrname,
+          search: req.query.search,
+          searchtype: req.query.options,
+          results: results
+        });
+      });
+      break;
+    case 'subject':
+      Article.find({'subject': search}, function(err, results) {
+        res.render('results',
+        {
+          title: 'AAM | ' + req.query.search,
+          username: usrname,
+          search: req.query.search,
+          searchtype: req.query.options,
+          results: results
+        });
+      });
+      break;
+    default:
+      res.render('aam-error', {username: req.user.username, message: 'unsupported search.'});
+      break;
+  }
+}
 
-// Go to registration page
-userController.register = function(req, res) {
-  res.render('register');
-};
+function tagSearch(search, next) {
+  Article.find({ 'tag': { $in: [search]}}, next(err, result));
+}
 
-// Post registration
-userController.doRegister = function(req, res) {
-  User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
-    if (err) {
-      console.log('Error in AuthController.doRegister()');
-      return res.render('register', { user : user });
-    }
+function authorSearch(search, next) {
+  Article.find({ 'author': search }, next(err, result));
+}
 
-    passport.authenticate('local')(req, res, function () {
-      res.redirect('/');
+function subjectSearch(req, res, next) {
+  Article.find({ 'subject': search }, next(err, result));
+}
+
+function doiSearch(req, res, next) {
+  Article.find({ 'doi': search }, next(err, result));
+}
+
+// Retrieve all articles in the db
+exports.retrieveAll = function(req, res, next) {
+  var usrname;
+  var admin;
+  if( !req.user ) {
+    usrname = 'unregistered user';
+    admin = false;
+  }
+  else {
+    usrname = req.user.username;    
+    admin = req.user.admin;
+  }
+  // retrieve all articles from the article collection
+  Article.find( function(err, results) {
+    if(err) return console.log(err);
+
+    res.render('results', {
+      title: 'AAM | ' + req.query.search,
+      username: usrname,
+      admin: admin,
+      search: req.query.search,
+      searchtype: req.query.options,
+      results: results });
     });
-  }); 
-};
+}
 
-// Go to login page
-userController.login = function(req, res) {
-  res.render('login');
-};
+// Retrieve all articles in the db, respond with JSON
+exports.retrieveAllJSON = function(req, res, next) {
+  // retrieve all articles from the article collection
+  Article.find( function(err, results) {
+    if(err) return console.log(err);
 
-// Post login
-userController.doLogin = function(req, res) {
-  passport.authenticate('local')(req, res, function () {
-    console.log(JSON.stringify(req.session) + ' just logged in');
-    res.render('login');
+    console.log('Sending all articles in JSON.');
+    return res.send(results);
   });
-};
+}
 
-// logout
-userController.logout = function(req, res) {
-  req.logout();
-  res.redirect('/');
-};
-
-module.exports = userController;
-
+// UPDATE:
+// session user is stored in req.user.username
 
 // !! NOTE
 //  Session user is stored in req.session.passport.user

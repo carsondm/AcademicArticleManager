@@ -1,51 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var fileUpload = require('express-fileupload');
 
+var fs = require('fs');
 var Article = require('../models/article');
+var UploadController = require('../controllers/UploadController');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+// GET home page.
+router.get('/manual/file', function(req, res, next) {
   res.render('upload', { title: 'AAM | Upload', username: req.session.passport.user });
 });
 
-router.post('/manualcreate', function(req, res, next) {
-  var art = new Article({
-    title: req.body.title,
-    university: req.body.uni,
-    author: req.body.author,
-    tag: req.body.tags.split(/[ ,]+/),
-    snippet: req.body.snippet,
-    owner: req.body.owner
-  });
-
-  art.save( function(err, art) {
-    if(err) return console.log(err);
-    return console.log('Manually created an article ' + art.title);
-  });
-
-  res.redirect('/search');
+// This is the route for manually creating an entry in the database
+router.get('/manual/create', function(req, res, next) {
+  res.render('create', { title: 'Manually create article', username: req.session.passport.user });
 });
 
-router.post('/', function(req, res, next) {
-	if(!req.files) {
-		console.log('/upload was called without a file.');
-		// return res.status(400).send('No files were uploaded.');
-		return res.send(req.files.file);
-	}
+// Create database entry from form fields, with default file
+router.post('/manual/file', UploadController.uploadAndParse);
 
-	let uploadedFile = req.files.file;
+// Create a file-less article, inserting fields by hand 
+router.post('/manual/create', UploadController.manualCreate);
 
-	uploadedFile.mv('/home/ubuntu/files/' + req.files.file.name, function(err) {
-		if(err){
-			console.log('Error uploading ' + req.files.file.name + '\nError: ' + err);
-			return res.status(500).send(err);
-		}
-
-
-		return res.send('File uploaded');
-	});
-
-});
 
 module.exports = router;
