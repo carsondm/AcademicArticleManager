@@ -1,0 +1,29 @@
+group 'fupa.tech'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+mainClassName = 'Parse'
+
+
+repositories {
+    mavenCentral()
+}
+
+run {
+    if ( project.hasProperty('args') ) {
+        args project.args.split('\\s+')
+    }
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.apache.pdfbox:pdfbox:2.0.8'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+}
